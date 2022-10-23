@@ -7,7 +7,9 @@ import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
+import MenuSelectorPage from './pages/MenuSelectorPage';
+import OrderRequests from './pages/OrderRequests';
+import AcceptedOrders from './pages/AcceptedOrders';
 import DashboardAppPage from './pages/DashboardAppPage';
 
 // ----------------------------------------------------------------------
@@ -21,7 +23,10 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
+        { path: 'menu-selector-page', element: <MenuSelectorPage /> },
+        { path: 'accepted-orders', element: <AcceptedOrders /> },
+        { path: 'order-requests', element: <OrderRequests /> },
+        { path: 'menu-selector-page', element: <MenuSelectorPage /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },

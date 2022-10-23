@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
@@ -67,9 +68,15 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <Button variant="contained">Menu Selector</Button>
-          <Button variant="text">Order Requests</Button>
-          <Button variant="text">Accepted Orders</Button>
+          <Link to="menu-selector-page" style={{"textDecoration":'none'}}>
+            <Button variant="contained">Menu Selector</Button>
+          </Link>
+          <Link to="order-requests" style={{"textDecoration":'none'}}>
+            <Button variant="text">Order Requests</Button>
+          </Link>
+          <Link to="accepted-orders" style={{"textDecoration":'none'}}>
+            <Button variant="text">Accepted Orders</Button>
+          </Link>
         </Stack>
       </StyledToolbar>
     </StyledRoot>
