@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -14,7 +14,7 @@ import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
-const NAV_WIDTH = 280;
+const NAV_WIDTH = 150;
 
 const HEADER_MOBILE = 64;
 
@@ -57,7 +57,6 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
@@ -68,9 +67,9 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <LanguagePopover />
-          <NotificationsPopover />
-          <AccountPopover />
+          <Button variant="contained">Menu Selector</Button>
+          <Button variant="text">Order Requests</Button>
+          <Button variant="text">Accepted Orders</Button>
         </Stack>
       </StyledToolbar>
     </StyledRoot>
