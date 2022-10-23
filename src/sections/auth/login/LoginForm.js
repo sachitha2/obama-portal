@@ -20,6 +20,12 @@ export default function LoginForm() {
   return (
     <>
       <Stack spacing={3}>
+
+        <Stack justify="center" alignItems="center">
+          <img src="/assets/illustrations/cart.png" alt="login" width={436}/>
+        </Stack>
+        
+        
         <TextField name="email" label="Email address" />
 
         <TextField
@@ -38,12 +44,7 @@ export default function LoginForm() {
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me" />
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
-      </Stack>
+      <br/>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
         Login
