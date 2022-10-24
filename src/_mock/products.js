@@ -33,12 +33,12 @@ const PRODUCT_COLOR = ['#00AB55', '#000000', '#FFFFFF', '#FFC0CB', '#FF4842', '#
 
 // ----------------------------------------------------------------------
 
-const products = [...Array(24)].map((_, index) => {
+const products = [...Array(3)].map((_, index) => {
   const setIndex = index + 1;
 
   return {
     id: faker.datatype.uuid(),
-    cover: `/assets/images/products/product_${setIndex}.jpg`,
+    cover: `/assets/images/products/product_${setIndex}.png`,
     name: PRODUCT_NAME[index],
     price: faker.datatype.number({ min: 4, max: 99, precision: 0.01 }),
     priceSale: setIndex % 3 ? null : faker.datatype.number({ min: 19, max: 29, precision: 0.01 }),

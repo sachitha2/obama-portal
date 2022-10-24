@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 // @mui
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography,Button } from '@mui/material';
 // components
 import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
@@ -23,27 +23,14 @@ export default function ProductsPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard: Products | Minimal UI </title>
+        <title> Dashboard: Menu Selector </title>
       </Helmet>
 
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+        <Typography variant="h2" sx={{ mb: 5 }}>
+          Menu Selector
         </Typography>
-
-        <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              openFilter={openFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            <ProductSort />
-          </Stack>
-        </Stack>
-
         <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
       </Container>
     </>
   );

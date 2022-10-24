@@ -23,27 +23,15 @@ export default function OrderRequests() {
   return (
     <>
       <Helmet>
-        <title> Dashboard: Products | Minimal UI </title>
+        <title> Dashboard: Order Requests </title>
       </Helmet>
 
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+        <Typography variant="h2" sx={{ mb: 5 }}>
+          Order Requests
         </Typography>
-
-        <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              openFilter={openFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            <ProductSort />
-          </Stack>
-        </Stack>
-
-        <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
+        {/* TODO */}
+        TODO - Order Requests
       </Container>
     </>
   );

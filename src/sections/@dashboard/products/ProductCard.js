@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
+import { Box, Card, Link, Typography, Stack,Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
@@ -28,34 +28,41 @@ export default function ShopProductCard({ product }) {
   const { name, cover, price, colors, status, priceSale } = product;
 
   return (
-    <Card>
+    <Card style={{"background":'#000'}}>
+      <Typography variant="h5" align='center'>
+        Chicken Fried Rice
+      </Typography>
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        {status && (
+        <h3 style={{"textAlign":"center"}}>Unavailable</h3>
+        {/* {status && (
           <Label
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
             sx={{
               zIndex: 9,
-              top: 16,
-              right: 16,
+              top: '50%',
+              right: '50%',
               position: 'absolute',
+              width:"100px",
+              height:"40px",
               textTransform: 'uppercase',
             }}
           >
             {status}
           </Label>
-        )}
-        <StyledProductImg alt={name} src={cover} />
+        )} */}
+        <StyledProductImg alt={name} src={cover} style={{'opacity':'0.3'}}/>
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link color="inherit" underline="hover">
+        <Button variant='contained'>purchase</Button>
+        {/* <Link color="inherit" underline="hover">
           <Typography variant="subtitle2" noWrap>
             {name}
           </Typography>
-        </Link>
+        </Link> */}
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+        {/* <Stack direction="row" alignItems="center" justifyContent="space-between">
           <ColorPreview colors={colors} />
           <Typography variant="subtitle1">
             <Typography
@@ -71,7 +78,7 @@ export default function ShopProductCard({ product }) {
             &nbsp;
             {fCurrency(price)}
           </Typography>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Card>
   );
