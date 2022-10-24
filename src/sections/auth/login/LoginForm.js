@@ -1,54 +1,60 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import {IconButton, InputAdornment, Stack, TextField} from '@mui/material';
+import {LoadingButton} from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
+import {login} from "../../../services/loginServices";
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [pwd, setPwd] = useState('');
 
-  const handleClick = () => {
-    navigate('/dashboard', { replace: true });
-  };
+    const handleClick = async () => {
+        await login(email, pwd)
+        // navigate('/dashboard', {replace: true});
+    };
 
-  return (
-    <>
-      <Stack spacing={3}>
 
-        <Stack justify="center" alignItems="center">
-          <img src="/assets/illustrations/cart.png" alt="login" width={436}/>
-        </Stack>
-        
-        
-        <TextField name="email" label="Email address" />
+    return (
+        <>
+            <Stack spacing={3}>
 
-        <TextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
+                <Stack justify="center" alignItems="center">
+                    <img src="/assets/illustrations/cart.png" alt="login" width={436}/>
+                </Stack>
 
-      <br/>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
-        Login
-      </LoadingButton>
-    </>
-  );
+                <TextField name="email" label="Email address" value={email} onChange={e => setEmail(e.target.value)}/>
+
+                <TextField
+                    name="password"
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={pwd} onChange={e => setPwd(e.target.value)}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'}/>
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </Stack>
+
+            <br/>
+
+            <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+                Login
+            </LoadingButton>
+        </>
+    );
 }
