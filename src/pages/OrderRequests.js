@@ -69,7 +69,6 @@ export default function OrderRequests() {
           </>
         ))}
         
-        {/* TODO */}
       </Container>
     </>
   );

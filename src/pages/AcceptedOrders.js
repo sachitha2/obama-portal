@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 // @mui
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography,Grid,Button,Divider } from '@mui/material';
 // components
 import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
@@ -31,8 +31,44 @@ export default function AcceptedOrders() {
           Accepted Orders
         </Typography>
 
-        {/* TODO */}
-        TODO - Accepted Orders
+        <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+          <Grid item xs={3} sm={3} md={3}>
+            Order No
+          </Grid>
+          <Grid item xs={3} sm={3} md={3}>
+            Items
+          </Grid>
+          <Grid item xs={3} sm={3} md={3}>
+            Quantity
+          </Grid>
+          <Grid item xs={3} sm={3} md={3} style={{"display":"none"}}>
+            Config
+          </Grid>
+        </Grid>
+        {Array.from(Array(6)).map((_, index) => (
+          <>
+          <Divider/>
+          <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+            <Grid item xs={3} sm={3} md={3}>
+              1001
+            </Grid>
+            <Grid item xs={3} sm={3} md={3}>
+              <p>Chicken Kottu</p>
+              <p>Chicken Kottu</p>
+              <p>Chicken Kottu</p>
+            </Grid>
+            <Grid item xs={3} sm={3} md={3}>
+              <p>10</p>
+              <p>10</p>
+              <p>10</p>
+            </Grid>
+            <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
+              <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}}>Prepared</Button>
+              <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>Assign</Button>
+            </Grid>
+          </Grid>
+          </>
+        ))}
       </Container>
     </>
   );
