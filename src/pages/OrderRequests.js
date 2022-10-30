@@ -1,24 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
-// @mui
-import { Container, Stack, Typography,Grid,Button,Divider } from '@mui/material';
-// components
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
-// mock
-import PRODUCTS from '../_mock/products';
+import {useEffect, useState, useCallback} from 'react';
+import { Container, Typography,Grid,Button,Divider } from '@mui/material';
 
-// ----------------------------------------------------------------------
 
 export default function OrderRequests() {
-  const [openFilter, setOpenFilter] = useState(false);
 
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
+  const [data,setData] = useState([]);
 
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
+  const handleOrder = useCallback((orderId,status)=>{ // accept/reject
+    // TODO handle api call to reject or accept
+    console.log(orderId,status)
+  },[])
+
+  useEffect(()=>{
+    // API call to fetch data TODO
+    setData([{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]},{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]}])
+  },[handleOrder])
 
   return (
     <>
@@ -44,29 +41,29 @@ export default function OrderRequests() {
             Config
           </Grid>
         </Grid>
-        {Array.from(Array(6)).map((_, index) => (
-          <>
+        {data.map((d, index) => (
+          <div key={index}>
           <Divider/>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              1001
+              {d?.orderId}
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              <p>Chicken Kottu</p>
-              <p>Chicken Kottu</p>
-              <p>Chicken Kottu</p>
+              {d?.items?.map((i,k)=>(
+              <p key={k}>{i?.name}</p>
+              ))}
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              <p>10</p>
-              <p>10</p>
-              <p>10</p>
+              {d?.items?.map((i,k)=>(
+                  <p key={k}>{i?.qty}</p>
+              ))}
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
-              <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}}>Accept</Button>
-              <Button style={{"backgroundColor":"#7E0000","color":"#FFF","margin":"5px"}}>Reject</Button>
+              <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'accept')}>Accept</Button>
+              <Button style={{"backgroundColor":"#7E0000","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'reject')}>Reject</Button>
             </Grid>
           </Grid>
-          </>
+          </div>
         ))}
         
       </Container>
