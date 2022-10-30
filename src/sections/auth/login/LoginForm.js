@@ -1,11 +1,12 @@
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // @mui
-import {IconButton, InputAdornment, Stack, TextField} from '@mui/material';
-import {LoadingButton} from '@mui/lab';
+import { IconButton, InputAdornment, Stack, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 // components
+import { setCookie } from '../../../utils/cookies';
 import Iconify from '../../../components/iconify';
-import {login} from "../../../services/loginServices";
+import { login } from "../../../services/loginServices";
 
 // ----------------------------------------------------------------------
 
@@ -17,21 +18,25 @@ export default function LoginForm() {
     const [pwd, setPwd] = useState('');
 
     const handleClick = async () => {
-        await login(email, pwd)
-        // navigate('/dashboard', {replace: true});
+        login(email, pwd).then(result => {
+                setCookie('userId', result.data.userId);
+                setCookie('role', result.data.role);
+                navigate('/dashboard', { replace: true });
+            }).catch(e => {
+                alert(e.response.data)
+            })
     };
-
 
     return (
         <>
             <Stack spacing={3}>
 
                 <Stack justify="center" alignItems="center">
-                    <img src="/assets/illustrations/cart.png" alt="login" width={436}/>
+                    <img src="/assets/illustrations/cart.png" alt="login" width={436} />
                 </Stack>
 
 
-                <TextField name="email" label="Email address" value={email} onChange={e => setEmail(e.target.value)}/>
+                <TextField name="email" label="Email address" value={email} onChange={e => setEmail(e.target.value)} />
 
                 <TextField
                     name="password"
@@ -42,7 +47,7 @@ export default function LoginForm() {
                         endAdornment: (
                             <InputAdornment position="end">
                                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'}/>
+                                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                                 </IconButton>
                             </InputAdornment>
                         ),
@@ -50,7 +55,7 @@ export default function LoginForm() {
                 />
             </Stack>
 
-            <br/>
+            <br />
 
             <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
                 Login

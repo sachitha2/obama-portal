@@ -1,19 +1,13 @@
 import axios from "axios";
-import {getCookie} from "../utils/cookies";
+import { getCookie } from "../utils/cookies";
 
-const config = {
-    headers: {
-        'Authorization': `Bearer ${getCookie('token')}`,
-    }
+export async function login(email, password) {
+    return axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/staff/login`, {
+        email,
+        password
+    })
 }
 
-export async function login(userName, password) {
-    // /auth/login
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}`, config).then(res => {
-            console.log(res.data)
-            return res.data
-        }
-    ).catch(e => {
-        console.log(e)
-    })
+export async function signUp() {
+    return axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/staff`,{})
 }
