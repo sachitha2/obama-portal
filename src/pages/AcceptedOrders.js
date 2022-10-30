@@ -1,24 +1,21 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import {useCallback, useEffect, useState} from "react";
 // @mui
-import { Container, Stack, Typography,Grid,Button,Divider } from '@mui/material';
-// components
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
-// mock
-import PRODUCTS from '../_mock/products';
-
-// ----------------------------------------------------------------------
+import { Container, Typography,Grid,Button,Divider } from '@mui/material';
 
 export default function AcceptedOrders() {
-  const [openFilter, setOpenFilter] = useState(false);
 
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
+  const [data,setData] = useState([]);
 
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
+  const handleOrder = useCallback((orderId,status)=>{ // assign / prepare
+    // TODO handle api call to assign or prepare
+    console.log(orderId,status)
+  },[])
+
+  useEffect(()=>{
+    // API call to fetch data TODO
+    setData([{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]},{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]}])
+  },[handleOrder])
 
   return (
     <>
@@ -45,29 +42,29 @@ export default function AcceptedOrders() {
             Config
           </Grid>
         </Grid>
-        {Array.from(Array(6)).map((_, index) => (
-          <>
-          <Divider/>
-          <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-            <Grid item xs={3} sm={3} md={3}>
-              1001
-            </Grid>
-            <Grid item xs={3} sm={3} md={3}>
-              <p>Chicken Kottu</p>
-              <p>Chicken Kottu</p>
-              <p>Chicken Kottu</p>
-            </Grid>
-            <Grid item xs={3} sm={3} md={3}>
-              <p>10</p>
-              <p>10</p>
-              <p>10</p>
-            </Grid>
-            <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
-              <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}}>Prepared</Button>
-              <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>Assign</Button>
-            </Grid>
-          </Grid>
-          </>
+        {data.map((d, index) => (
+            <div key={index}>
+              <Divider/>
+              <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+                <Grid item xs={3} sm={3} md={3}>
+                  {d?.orderId}
+                </Grid>
+                <Grid item xs={3} sm={3} md={3}>
+                  {d?.items?.map((i,k)=>(
+                      <p key={k}>{i?.name}</p>
+                  ))}
+                </Grid>
+                <Grid item xs={3} sm={3} md={3}>
+                  {d?.items?.map((i,k)=>(
+                      <p key={k}>{i?.qty}</p>
+                  ))}
+                </Grid>
+                <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'prepare')}>Prepared</Button>
+                  <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'assign')}>Assign</Button>
+                </Grid>
+              </Grid>
+            </div>
         ))}
       </Container>
     </>
