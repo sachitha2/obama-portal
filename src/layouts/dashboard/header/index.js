@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
 import Iconify from '../../../components/iconify';
-//
-import Searchbar from './Searchbar';
-import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
-import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +39,9 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+
+  const { pathname } = useLocation();
+
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -69,13 +67,13 @@ export default function Header({ onOpenNav }) {
           }}
         >
           <Link to="menu-selector-page" style={{"textDecoration":'none'}}>
-            <Button variant="contained">Menu Selector</Button>
+            <Button variant={pathname==='/dashboard/menu-selector-page'?"contained":'text'}>Menu Selector</Button>
           </Link>
           <Link to="order-requests" style={{"textDecoration":'none'}}>
-            <Button variant="text">Order Requests</Button>
+            <Button variant={pathname==='/dashboard/order-requests'?"contained":'text'}>Order Requests</Button>
           </Link>
           <Link to="accepted-orders" style={{"textDecoration":'none'}}>
-            <Button variant="text">Accepted Orders</Button>
+            <Button variant={pathname==='/dashboard/accepted-orders'?"contained":'text'}>Accepted Orders</Button>
           </Link>
         </Stack>
       </StyledToolbar>
