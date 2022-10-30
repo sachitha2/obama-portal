@@ -55,7 +55,7 @@ export default function ShopProductCard({ product }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Button variant='contained'>purchase</Button>
+        <Button variant='contained'>Availabale</Button>
         {/* <Link color="inherit" underline="hover">
           <Typography variant="subtitle2" noWrap>
             {name}
