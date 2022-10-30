@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Card, Link, Typography, Stack,Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
+import {useState} from "react";
 import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Label from '../../../components/label';
@@ -22,63 +23,31 @@ const StyledProductImg = styled('img')({
 
 ShopProductCard.propTypes = {
   product: PropTypes.object,
+    changed: PropTypes.func
 };
 
-export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+export default function ShopProductCard({ product, changed }) {
+  const { name, cover, currentState, itemId } = product;
+
+    const changeState = (id)=>{
+        // API call to change State TODO
+
+        changed();
+    }
 
   return (
     <Card style={{"background":'#000'}}>
       <Typography variant="h5" align='center'>
-        Chicken Fried Rice
+          {name}
       </Typography>
+
       <Box sx={{ pt: '100%', position: 'relative' }}>
-        <h3 style={{"textAlign":"center"}}>Unavailable</h3>
-        {/* {status && (
-          <Label
-            variant="filled"
-            color={(status === 'sale' && 'error') || 'info'}
-            sx={{
-              zIndex: 9,
-              top: '50%',
-              right: '50%',
-              position: 'absolute',
-              width:"100px",
-              height:"40px",
-              textTransform: 'uppercase',
-            }}
-          >
-            {status}
-          </Label>
-        )} */}
+        <h3 style={{"textAlign":"center"}}>{currentState==='AVAILABLE'?'Available':'Unavailable'}</h3>
         <StyledProductImg alt={name} src={cover} style={{'opacity':'0.3'}}/>
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Button variant='contained'>purchase</Button>
-        {/* <Link color="inherit" underline="hover">
-          <Typography variant="subtitle2" noWrap>
-            {name}
-          </Typography>
-        </Link> */}
-
-        {/* <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={colors} />
-          <Typography variant="subtitle1">
-            <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: 'text.disabled',
-                textDecoration: 'line-through',
-              }}
-            >
-              {priceSale && fCurrency(priceSale)}
-            </Typography>
-            &nbsp;
-            {fCurrency(price)}
-          </Typography>
-        </Stack> */}
+        <Button variant='contained' onClick={()=>changeState(itemId)}>{currentState==='AVAILABLE'?'Unavailable':'Available'}</Button>
       </Stack>
     </Card>
   );
