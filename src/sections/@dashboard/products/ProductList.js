@@ -1,6 +1,7 @@
 // @mui
 import { Grid } from '@mui/material';
 import {useState, useEffect} from "react";
+import { getMenuItems } from '../../../services/MenuService';
 import ShopProductCard from './ProductCard';
 
 // ----------------------------------------------------------------------
@@ -11,13 +12,14 @@ export default function ProductList({...other}) {
   const [changed,setChanged] = useState(false)
 
   useEffect(()=>{
-    // API call to fetch ALL products TODO
-    setProducts([{
-      name:"Chicken Fried Rice", cover:"/assets/images/products/product_1.png", currentState:"AVAILABLE", itemId:12
-    },{
-      name:"Pasta", cover:"/assets/images/products/product_2.png", currentState:"AVAILABLE", itemId:12
+    // API call to fetch ALL products
+    const fetchData = () =>{
+      getMenuItems().then(data =>{
+        const out = data.data.map(d=>({name:d.menuName,cover:d.imageUrl,currentState:d.availability,itemId:d.menuId}))
+        setProducts(out);
+      })
     }
-    ])
+    fetchData();
   },[changed])
 
   return (

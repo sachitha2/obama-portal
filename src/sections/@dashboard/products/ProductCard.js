@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import { Box, Card, Typography, Stack,Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { setAvailability } from '../../../services/MenuService';
 // utils
 // components
 
@@ -26,9 +27,8 @@ export default function ShopProductCard({ product, changed }) {
   const { name, cover, currentState, itemId } = product;
 
     const changeState = (id)=>{
-        // API call to change State TODO
-        console.log(id)
-        changed();
+        // API call to change State
+        setAvailability(id).then(()=>changed());        
     }
 
   return (
@@ -43,7 +43,7 @@ export default function ShopProductCard({ product, changed }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Button variant='contained' onClick={()=>changeState(itemId)}>{currentState==='AVAILABLE'?'Unavailable':'Available'}</Button>
+        <Button variant={currentState==='AVAILABLE'?'contained':'outlined'} onClick={()=>changeState(itemId)}>{currentState==='AVAILABLE'?'Unavailable':'Available'}</Button>
       </Stack>
     </Card>
   );
