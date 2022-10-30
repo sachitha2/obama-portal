@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Card, Link, Typography, Stack,Button } from '@mui/material';
+import { Box, Card, Typography, Stack,Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
-import {useState} from "react";
-import { fCurrency } from '../../../utils/formatNumber';
 // components
-import Label from '../../../components/label';
-import { ColorPreview } from '../../../components/color-utils';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +27,7 @@ export default function ShopProductCard({ product, changed }) {
 
     const changeState = (id)=>{
         // API call to change State TODO
-
+        console.log(id)
         changed();
     }
 
