@@ -27,7 +27,6 @@ export default function LoginForm() {
             setCookie('role', result.data.role);
             console.log(result.data.role);
 
-            window.sessionStorage.setItem("USER_ROLE", result.data.role);
             switch (result.data.role) {
                 case 'ADMIN': navigate('/dashboard'); break;
                 case 'KITCHEN_MANAGER': navigate('/dashboard/menu-selector-page'); break;

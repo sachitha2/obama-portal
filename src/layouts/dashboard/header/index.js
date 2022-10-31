@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import {Link, useLocation} from 'react-router-dom';
 import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
+import { useState, useEffect } from 'react';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -16,11 +17,7 @@ const NAV_WIDTH = 150;
 const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
-// KITCHEN_MANAGER , ADMIN
-const role = getCookie('role');
 
-const USER_ROLE = window.sessionStorage.getItem("USER_ROLE");
-console.log(USER_ROLE);
 
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
@@ -45,8 +42,13 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
-
+  const [USER_ROLE, setUserRole] = useState('');
   const { pathname } = useLocation();
+  useEffect(() => {
+    // KITCHEN_MANAGER , ADMIN
+    const role = getCookie('role');
+    setUserRole(role);
+  }, [])
 
   return (
     <StyledRoot>
@@ -97,11 +99,11 @@ export default function Header({ onOpenNav }) {
           }
 
         {USER_ROLE === "ADMIN" ? <>
-          <Link to="admin-dashboard" style={{"textDecoration":'none'}}>
-            <Button variant="contained">Dashboard</Button>
+          <Link to="app" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/app'?"contained":'text'}>Dashboard</Button>
           </Link>
           <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
-            <Button variant="text">Generate Reports</Button>
+            <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Generate Reports</Button>
           </Link>
           </>
           :
