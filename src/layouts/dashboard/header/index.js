@@ -21,6 +21,9 @@ const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
 
+window.sessionStorage.setItem("USER_ROLE", "ADMIN");
+const USER_ROLE = window.sessionStorage.getItem("USER_ROLE");
+
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
   boxShadow: 'none',
@@ -59,8 +62,17 @@ export default function Header({ onOpenNav }) {
         </IconButton>
 
         <Box sx={{ flexGrow: 1 }} />
-
+          
         <Stack
+          direction="column"
+          alignItems="flex-end"
+          spacing={{
+            xs: 0.5,
+            sm: 1,
+          }}
+        >
+          <Button style={{'width':"100px",'color':"white"}}>{USER_ROLE}</Button>
+          <Stack
           direction="row"
           alignItems="center"
           spacing={{
@@ -77,6 +89,8 @@ export default function Header({ onOpenNav }) {
           <Link to="accepted-orders" style={{"textDecoration":'none'}}>
             <Button variant="text">Accepted Orders</Button>
           </Link>
+        </Stack>
+
         </Stack>
       </StyledToolbar>
     </StyledRoot>
