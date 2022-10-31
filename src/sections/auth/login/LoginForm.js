@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
+
 // @mui
 import { IconButton, InputAdornment, Stack, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -11,20 +12,30 @@ import { login } from "../../../services/loginServices";
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
 
+    const navigate = useNavigate();
+
+
     const handleClick = async () => {
+
         login(email, pwd).then(result => {
-                setCookie('userId', result.data.userId);
-                setCookie('role', result.data.role);
-                navigate('/dashboard', { replace: true });
-            }).catch(e => {
-                alert(e.response.data)
-            })
+            setCookie('userId', result.data.userId);
+            setCookie('role', result.data.role);
+            console.log(result.data.role);
+
+            window.sessionStorage.setItem("USER_ROLE", result.data.role);
+            switch (result.data.role) {
+                case 'ADMIN': navigate('/dashboard'); break;
+                case 'KITCHEN_MANAGER': navigate('/dashboard/menu-selector-page'); break;
+                default: navigate('/dashboard');
+            }
+        }).catch(e => {
+            alert(e.response.data)
+        })
     };
 
     return (

@@ -7,6 +7,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
 import { bgBlur } from '../../../utils/cssStyles';
 // components
 import Iconify from '../../../components/iconify';
+import { getCookie } from '../../../utils/cookies';
 
 // ----------------------------------------------------------------------
 
@@ -16,8 +17,10 @@ const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
 // KITCHEN_MANAGER , ADMIN
-window.sessionStorage.setItem("USER_ROLE", "ADMIN");
+const role = getCookie('role');
+
 const USER_ROLE = window.sessionStorage.getItem("USER_ROLE");
+console.log(USER_ROLE);
 
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
