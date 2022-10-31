@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+
 // @mui
 import { styled } from '@mui/material/styles';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import { Box, Stack, AppBar, Toolbar, IconButton,Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
 import Iconify from '../../../components/iconify';
-import { getCookie } from '../../../utils/cookies';
+import { getCookie, eraseCookie } from '../../../utils/cookies';
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +51,14 @@ export default function Header({ onOpenNav }) {
     setUserRole(role);
   }, [])
 
+  const navigate = useNavigate();
+
+  const logOut = ()=>{
+    eraseCookie('role');
+    eraseCookie('userId');
+    navigate('/login');
+  }
+
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -74,7 +83,7 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <Button style={{'width':"100px",'color':"white"}}>{USER_ROLE}</Button>
+          <Button style={{'width':"100px",'color':"white"}} onClick={logOut}>{USER_ROLE}</Button>
           <Stack
           direction="row"
           alignItems="center"
