@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import {useCallback, useEffect, useState} from "react";
 // @mui
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
+import { getAcceptedOrders, prepareOrder } from '../services/OrderService';
 
 export default function AcceptedOrders() {
 
@@ -9,12 +10,19 @@ export default function AcceptedOrders() {
 
   const handleOrder = useCallback((orderId,status)=>{ // assign / prepare
     // TODO handle api call to assign or prepare
-    console.log(orderId,status)
-  },[])
+      prepareOrder(orderId);
+    // console.log(orderId,status)
+    },[])
 
   useEffect(()=>{
     // API call to fetch data TODO
-    setData([{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]},{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]}])
+    const fetchData = () =>{
+      getAcceptedOrders().then(data =>{
+        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.menuName,qty:item.quantity}))}))
+        setData(out);
+      })
+    }
+    fetchData();
   },[handleOrder])
 
   return (
