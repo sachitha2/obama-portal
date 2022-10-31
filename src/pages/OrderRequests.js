@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import {useEffect, useState, useCallback} from 'react';
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
+import { getOrderRequests, acceptOrder } from '../services/OrderService';
 
 
 export default function OrderRequests() {
@@ -9,12 +10,19 @@ export default function OrderRequests() {
 
   const handleOrder = useCallback((orderId,status)=>{ // accept/reject
     // TODO handle api call to reject or accept
+    acceptOrder(orderId);
     console.log(orderId,status)
   },[])
 
   useEffect(()=>{
     // API call to fetch data TODO
-    setData([{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]},{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]}])
+    const fetchData = () =>{
+      getOrderRequests().then(data =>{
+        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.menuName,qty:item.quantity}))}))
+        setData(out);
+      })
+    }
+    fetchData();
   },[handleOrder])
 
   return (
@@ -60,7 +68,7 @@ export default function OrderRequests() {
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
               <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'accept')}>Accept</Button>
-              <Button style={{"backgroundColor":"#7E0000","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'reject')}>Reject</Button>
+              {/* <Button style={{"backgroundColor":"#7E0000","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'reject')}>Reject</Button> */}
             </Grid>
           </Grid>
           </div>
