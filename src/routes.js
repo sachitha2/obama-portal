@@ -11,6 +11,7 @@ import MenuSelectorPage from './pages/MenuSelectorPage';
 import OrderRequests from './pages/OrderRequests';
 import AcceptedOrders from './pages/AcceptedOrders';
 import DashboardAppPage from './pages/DashboardAppPage';
+import AdminGenerateReports from './pages/AdminGenerateReports';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ export default function Router() {
         { path: 'menu-selector-page', element: <MenuSelectorPage /> },
         { path: 'accepted-orders', element: <AcceptedOrders /> },
         { path: 'order-requests', element: <OrderRequests /> },
-        { path: 'menu-selector-page', element: <MenuSelectorPage /> },
+        { path: 'admin-generate-reports', element: <AdminGenerateReports /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
