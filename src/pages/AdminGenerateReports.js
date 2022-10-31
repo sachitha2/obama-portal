@@ -10,6 +10,8 @@ import { ProductList} from '../sections/@dashboard/products';
 // ----------------------------------------------------------------------
 import 'jspdf-autotable';
 import LOGO from './logo.png'
+import LOGO2 from './logo2.png'
+import { getDailySales } from '../services/ReportService';
 
 export default function AdminGenerateReports() {
   const [forDate,setForDate] = useState('');
@@ -19,17 +21,19 @@ export default function AdminGenerateReports() {
   const [forMonth2, setForMonth2] = useState(0);
   const [expenseForDate,setExpenseForDate] = useState('')
 
-  function printtable(reportTitle,data) {
+  function printtable(reportTitle,data,headings,total) {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF();
-    doc.text(`Obama Foods`, 15, 15).setFontSize(18);
-    doc.text(reportTitle, 14, 55).setFontSize(14);
-    doc.addImage(LOGO, "PNG", 155, 1, 30, 40);
+    doc.setFontSize(30)
+    doc.text(`Obama Foods`, 50, 25).setFontSize(26);
+    doc.text(reportTitle, 50, 55).setFontSize(14);
+    doc.text(`Total Sales =  ${total.toString()}`, 150, 200).setFontSize(14);
+    doc.addImage(LOGO2, "PNG", 155, 1, 30, 40);
 
 
     doc.autoTable({
       theme: 'striped',
-      head: [Object.keys(data[0])],
+      head: [headings],
       body: data.map(Object.values),
       startY: 60,
     })
@@ -46,16 +50,11 @@ export default function AdminGenerateReports() {
   };
 
   const handleGenerateReport1 = useCallback(()=>{
-
-    // Fetch data array TODO
-    // forDate
-
-    const dataArray = [
-        {name:"dumidu",age:12,gender:"male"},
-      {name:"kasun",age:13,gender:"male"},
-      {name:"bandara",age:15,gender:"male"}
-    ]
-    printtable('Report of Daily Income 2',dataArray)
+    if(forDate==="") alert("Please Select a Date")
+    
+    getDailySales(forDate).then(({data})=>{
+      printtable(`Daily Income for ${data.date}`, data.salesInstances,['Item No','Menu Name','Quantity','Unit Price','Total'],data.total )
+    })
 
   },[forDate])
 
