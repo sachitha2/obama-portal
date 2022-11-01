@@ -30,6 +30,7 @@ export default function LoginForm() {
             switch (result.data.role) {
                 case 'ADMIN': navigate('/dashboard'); break;
                 case 'KITCHEN_MANAGER': navigate('/dashboard/menu-selector-page'); break;
+                case 'CASHIER': navigate('/dashboard/cashier-dashboard'); break;
                 default: navigate('/dashboard');
             }
         }).catch(e => {
