@@ -50,7 +50,11 @@ export default function LoginPageCustomer() {
       </Helmet>
 
       <StyledRoot>
-        <img src="/assets/illustrations/logo.png" alt="login" width={200}  height={200}/>
+        {mdUp ? 
+          <img src="/assets/illustrations/logo.png" alt="login" width={200}  height={200}/>
+        :
+        <img src="/assets/illustrations/logo.png" alt="login" width={100}  height={100}/>
+        }
         <Container maxWidth="sm">
           <StyledContent>
             <Typography variant="h2" gutterBottom align='center'>
