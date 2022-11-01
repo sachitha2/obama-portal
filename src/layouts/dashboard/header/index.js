@@ -45,9 +45,10 @@ export default function Header({ onOpenNav }) {
   const [USER_ROLE, setUserRole] = useState('');
   const { pathname } = useLocation();
   useEffect(() => {
-    // KITCHEN_MANAGER , ADMIN
+    // KITCHEN_MANAGER ,ADMIN, CUSTOMER, CASHIER,STOCK_KEEPER
     const role = getCookie('role');
     setUserRole(role);
+    setUserRole('CASHIER')
   }, [])
 
   const navigate = useNavigate();
@@ -118,6 +119,30 @@ export default function Header({ onOpenNav }) {
           </Link>
           <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Generate Reports</Button>
+          </Link>
+          </>
+          :
+          null
+          }
+
+          {USER_ROLE === "CUSTOMER" ? <>
+          CUSTOMER
+          </>
+          :
+          null
+          }
+
+          {USER_ROLE === "CASHIER" ? <>
+          <Link to="cashier-dashboard" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/cashier-dashboard'?"contained":'text'}>Dashboard</Button>
+          </Link>
+
+          <Link to="cashier-place-order" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/cashier-place-order'?"contained":'text'}>Place Order</Button>
+          </Link>
+
+          <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Accept Payments</Button>
           </Link>
           </>
           :
