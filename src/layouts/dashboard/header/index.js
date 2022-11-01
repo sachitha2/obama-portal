@@ -15,7 +15,7 @@ const NAV_WIDTH = 150;
 const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
-// KITCHEN_MANAGER , ADMIN
+// KITCHEN_MANAGER , ADMIN, CUSTOMER
 window.sessionStorage.setItem("USER_ROLE", "ADMIN");
 const USER_ROLE = window.sessionStorage.getItem("USER_ROLE");
 
@@ -97,8 +97,14 @@ export default function Header({ onOpenNav }) {
           <Link to="admin-dashboard" style={{"textDecoration":'none'}}>
             <Button variant="contained">Dashboard</Button>
           </Link>
+          <Link to="admin-manage-items" style={{"textDecoration":'none'}}>
+            <Button variant="contained">Manage Items</Button>
+          </Link>
+          <Link to="admin-manage-staff" style={{"textDecoration":'none'}}>
+            <Button variant="contained">Manage Staff</Button>
+          </Link>
           <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
-            <Button variant="text">Generate Reports</Button>
+            <Button variant="contained">Generate Reports</Button>
           </Link>
           </>
           :
