@@ -11,7 +11,9 @@ import { ProductList} from '../sections/@dashboard/products';
 import 'jspdf-autotable';
 import LOGO from './logo.png'
 import LOGO2 from './logo2.png'
-import { getDailySales, getSalesPeriod } from '../services/ReportService';
+import FOOTER from './footer.png'
+
+import { getDailySales, getSalesPeriod, getStoresReport } from '../services/ReportService';
 
 export default function AdminGenerateReports() {
   const [forDate,setForDate] = useState('');
@@ -24,11 +26,32 @@ export default function AdminGenerateReports() {
   function printtable(reportTitle,data,headings,total) {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF();
-    doc.setFontSize(30)
+    doc.setFontSize(30);
+    doc.setFont('Bell MT',null,'bold');
     doc.text(`Obama Foods`, 50, 25).setFontSize(24);
-    doc.text(reportTitle, 50, 55).setFontSize(14);
+    doc.text(reportTitle, 30, 55).setFontSize(14);
     doc.text(`Total Sales =  ${total.toString()}`, 150, 200).setFontSize(14);
     doc.addImage(LOGO2, "PNG", 155, 1, 30, 40);
+    doc.addImage(FOOTER, "PNG",  5, 250, 200, 28);
+
+    doc.autoTable({
+      theme: 'striped',
+      head: [headings],
+      body: data.map(Object.values),
+      startY: 60,
+    })
+    window.open(URL.createObjectURL(doc.output("blob")))
+  }
+
+  function printtableStores(reportTitle,data,headings) {
+    // eslint-disable-next-line new-cap
+    const doc = new jsPDF();
+    doc.setFontSize(30);
+    doc.setFont('Bell MT',null,'bold');
+    doc.text(`Obama Foods`, 60, 25).setFontSize(24);
+    doc.text(reportTitle, 45, 55).setFontSize(14);
+    doc.addImage(LOGO2, "PNG", 155, 1, 30, 40);
+    doc.addImage(FOOTER, "PNG", 5, 250, 200, 28);
 
 
     doc.autoTable({
@@ -60,16 +83,13 @@ export default function AdminGenerateReports() {
 
   const handleGenerateReport2 = useCallback(()=>{
 
-    // API call TODO
+    // API call
     // periodFrom,periodTo
     if(periodFrom==="" || periodTo==="" ) alert("Please Select a Date")
     
     getSalesPeriod(periodFrom,periodTo).then(({data})=>{
       printtable(`Daily Income from ${data.fromDate} to ${data.toDate}`, data.salesInstances,['Item No','Menu Name','Quantity','Unit Price','Total'],data.total )
     })
-
-  // }
-  //   printtable('Report of Daily Income 2',dataArray)
 
   },[periodFrom,periodTo])
 
@@ -78,7 +98,10 @@ export default function AdminGenerateReports() {
   },[forMonth])
 
   const handleGenerateReport4 = useCallback(()=>{
-    // expenseForDate
+    // expenseForToday
+    getStoresReport().then(({data})=>{
+      printtableStores(`Daily Stores Report for ${data.date}`, data.storesInstances,['Item Code','Item Name','Quantity Available','Quantity Used'])
+    })
 
   },[expenseForDate])
 
@@ -183,12 +206,12 @@ export default function AdminGenerateReports() {
         <div>
               <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
                 <Grid item xs={3} sm={3} md={3}>
-                  Generate Stores Report For Date
+                  Generate Stores Report For Today
                 </Grid>
-                <Grid item xs={3} sm={3} md={3}>
+                {/* <Grid item xs={3} sm={3} md={3}>
                   <TextField style={{"color":"white"}} name="date" type="date" value={expenseForDate} onChange={e => setExpenseForDate(e.target.value)} />
-                </Grid>
-                <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
+                </Grid> */}
+                <Grid item xs={9} sm={9} md={9} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
                   <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleGenerateReport4}>Print</Button>
                   </Grid>
               </Grid>
