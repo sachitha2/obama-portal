@@ -3,23 +3,92 @@ import { Helmet } from 'react-helmet-async';
 import { Container, Typography,Grid,Button,Divider,TextField,InputLabel,MenuItem,Select,SelectChangeEvent } from '@mui/material';
 import {useCallback, useEffect, useState} from "react";
 // components
+import jsPDF from 'jspdf';
 import { ProductList} from '../sections/@dashboard/products';
 // mock
 // import PRODUCTS from '../_mock/products';
 // ----------------------------------------------------------------------
+import 'jspdf-autotable';
+import LOGO from './logo.png'
+import LOGO2 from './logo2.png'
+import { getDailySales } from '../services/ReportService';
 
 export default function AdminGenerateReports() {
-  const [data,setData] = useState([{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]},{orderId:122,items:[{name:"ddd",qty:2},{name:"ddd2",qty:2}]}]);
   const [forDate,setForDate] = useState('');
   const [periodFrom,setPeriodFrom] = useState('');
   const [periodTo,setPeriodTo] = useState('');
   const [forMonth, setForMonth] = useState(0);
+  const [forMonth2, setForMonth2] = useState(0);
   const [expenseForDate,setExpenseForDate] = useState('')
-  const [expenseForMonth,setExpenseForMonth] = useState('')
+
+  function printtable(reportTitle,data,headings,total) {
+    // eslint-disable-next-line new-cap
+    const doc = new jsPDF();
+    doc.setFontSize(30)
+    doc.text(`Obama Foods`, 50, 25).setFontSize(26);
+    doc.text(reportTitle, 50, 55).setFontSize(14);
+    doc.text(`Total Sales =  ${total.toString()}`, 150, 200).setFontSize(14);
+    doc.addImage(LOGO2, "PNG", 155, 1, 30, 40);
+
+
+    doc.autoTable({
+      theme: 'striped',
+      head: [headings],
+      body: data.map(Object.values),
+      startY: 60,
+    })
+    window.open(URL.createObjectURL(doc.output("blob")))
+  }
+
 
   const handleChange = (event) => {
     setForMonth(event.target.value);
   };
+
+  const handleChange2 = (event) => {
+    setForMonth2(event.target.value);
+  };
+
+  const handleGenerateReport1 = useCallback(()=>{
+    if(forDate==="") alert("Please Select a Date")
+    
+    getDailySales(forDate).then(({data})=>{
+      printtable(`Daily Income for ${data.date}`, data.salesInstances,['Item No','Menu Name','Quantity','Unit Price','Total'],data.total )
+    })
+
+  },[forDate])
+
+  const handleGenerateReport2 = useCallback(()=>{
+
+    // API call TODO
+    // periodFrom,periodTo
+
+    const dataArray = [
+      {name:"dumidu",age:12,gender:"male"},
+      {name:"kasun",age:13,gender:"male"},
+      {name:"bandara",age:15,gender:"male"}
+    ]
+
+    printtable('Report of Daily Income 2',dataArray)
+
+  },[periodFrom,periodTo])
+
+  const handleGenerateReport3 = useCallback(()=>{
+    // forMonth
+  },[forMonth])
+
+  const handleGenerateReport4 = useCallback(()=>{
+    // expenseForDate
+
+  },[expenseForDate])
+
+  const handleGenerateReport5 = useCallback(()=>{
+
+
+    // forMonth2
+
+  },[forMonth2])
+
   return (
     <>
       <Helmet>
@@ -46,7 +115,7 @@ export default function AdminGenerateReports() {
                   <TextField style={{"color":"white"}} name="date" type="date" value={forDate} onChange={e => setForDate(e.target.value)} />
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} >Print</Button>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleGenerateReport1}>Print</Button>
                   </Grid>
               </Grid>
         </div>
@@ -66,7 +135,7 @@ export default function AdminGenerateReports() {
                   To <TextField style={{"color":"white"}} name="date" type="date" value={periodTo} onChange={e => setPeriodTo(e.target.value)} />
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} >Print</Button>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleGenerateReport2} >Print</Button>
                   </Grid>
               </Grid>
         </div>
@@ -100,7 +169,7 @@ export default function AdminGenerateReports() {
                 </Select>
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} >Print</Button>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}}onClick={handleGenerateReport3} >Print</Button>
                   </Grid>
               </Grid>
         </div>
@@ -120,7 +189,7 @@ export default function AdminGenerateReports() {
                   <TextField style={{"color":"white"}} name="date" type="date" value={expenseForDate} onChange={e => setExpenseForDate(e.target.value)} />
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} >Print</Button>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleGenerateReport4}>Print</Button>
                   </Grid>
               </Grid>
         </div>
@@ -135,9 +204,9 @@ export default function AdminGenerateReports() {
                 <Select
                   labelId="label-for-month"
                   id="id-for-month"
-                  value={forMonth}
+                  value={forMonth2}
                   label="Month"
-                  onChange={handleChange}
+                  onChange={handleChange2}
                 >
                   <MenuItem style={{"color":"black"}} value={0}>Select Month</MenuItem>
                   <MenuItem style={{"color":"black"}} value={1}>January</MenuItem>
@@ -155,7 +224,7 @@ export default function AdminGenerateReports() {
                 </Select>
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} >Print</Button>
+                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleGenerateReport5} >Print</Button>
                   </Grid>
               </Grid>
         </div>
