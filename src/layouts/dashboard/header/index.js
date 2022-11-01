@@ -19,7 +19,6 @@ const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
 
-
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
   boxShadow: 'none',
@@ -110,6 +109,12 @@ export default function Header({ onOpenNav }) {
         {USER_ROLE === "ADMIN" ? <>
           <Link to="app" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/app'?"contained":'text'}>Dashboard</Button>
+          </Link>
+          <Link to="admin-manage-items" style={{"textDecoration":'none'}}>
+            <Button variant="contained">Manage Items</Button>
+          </Link>
+          <Link to="admin-manage-staff" style={{"textDecoration":'none'}}>
+            <Button variant="contained">Manage Staff</Button>
           </Link>
           <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Generate Reports</Button>

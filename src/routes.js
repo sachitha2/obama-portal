@@ -12,6 +12,10 @@ import OrderRequests from './pages/OrderRequests';
 import AcceptedOrders from './pages/AcceptedOrders';
 import DashboardAppPage from './pages/DashboardAppPage';
 import AdminGenerateReports from './pages/AdminGenerateReports';
+import AdminManageStaff from './pages/AdminManageStaff';
+import AdminManageItems from './pages/AdminManageItems';
+import LoginPageCustomerVerify from './pages/LoginPageCustomerVerify';
+import LoginPageCustomer from './pages/LoginPageCustomer';
 
 // ----------------------------------------------------------------------
 
@@ -28,12 +32,22 @@ export default function Router() {
         { path: 'accepted-orders', element: <AcceptedOrders /> },
         { path: 'order-requests', element: <OrderRequests /> },
         { path: 'admin-generate-reports', element: <AdminGenerateReports /> },
+        { path: 'admin-manage-staff', element: <AdminManageStaff/> },
+        { path: 'admin-manage-items', element: <AdminManageItems/> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
     {
       path: 'login',
       element: <LoginPage />,
+    },
+    {
+      path: 'customer-login',
+      element: <LoginPageCustomer/>,
+    },
+    {
+      path: 'customer-login-verify',
+      element: <LoginPageCustomerVerify />,
     },
     {
       element: <SimpleLayout />,
