@@ -111,10 +111,10 @@ export default function Header({ onOpenNav }) {
             <Button variant={pathname==='/dashboard/app'?"contained":'text'}>Dashboard</Button>
           </Link>
           <Link to="admin-manage-items" style={{"textDecoration":'none'}}>
-            <Button variant="contained">Manage Items</Button>
+            <Button variant={pathname==='/dashboard/admin-manage-items'?"contained":'text'}>Manage Items</Button>
           </Link>
           <Link to="admin-manage-staff" style={{"textDecoration":'none'}}>
-            <Button variant="contained">Manage Staff</Button>
+            <Button variant={pathname==='/dashboard/admin-manage-staff'?"contained":'text'}>Manage Staff</Button>
           </Link>
           <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Generate Reports</Button>

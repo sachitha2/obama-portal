@@ -11,7 +11,7 @@ import { ProductList} from '../sections/@dashboard/products';
 import 'jspdf-autotable';
 import LOGO from './logo.png'
 import LOGO2 from './logo2.png'
-import { getDailySales } from '../services/ReportService';
+import { getDailySales, getSalesPeriod } from '../services/ReportService';
 
 export default function AdminGenerateReports() {
   const [forDate,setForDate] = useState('');
@@ -25,7 +25,7 @@ export default function AdminGenerateReports() {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF();
     doc.setFontSize(30)
-    doc.text(`Obama Foods`, 50, 25).setFontSize(26);
+    doc.text(`Obama Foods`, 50, 25).setFontSize(24);
     doc.text(reportTitle, 50, 55).setFontSize(14);
     doc.text(`Total Sales =  ${total.toString()}`, 150, 200).setFontSize(14);
     doc.addImage(LOGO2, "PNG", 155, 1, 30, 40);
@@ -62,14 +62,14 @@ export default function AdminGenerateReports() {
 
     // API call TODO
     // periodFrom,periodTo
+    if(periodFrom==="" || periodTo==="" ) alert("Please Select a Date")
+    
+    getSalesPeriod(periodFrom,periodTo).then(({data})=>{
+      printtable(`Daily Income from ${data.fromDate} to ${data.toDate}`, data.salesInstances,['Item No','Menu Name','Quantity','Unit Price','Total'],data.total )
+    })
 
-    const dataArray = [
-      {name:"dumidu",age:12,gender:"male"},
-      {name:"kasun",age:13,gender:"male"},
-      {name:"bandara",age:15,gender:"male"}
-    ]
-
-    printtable('Report of Daily Income 2',dataArray)
+  // }
+  //   printtable('Report of Daily Income 2',dataArray)
 
   },[periodFrom,periodTo])
 
