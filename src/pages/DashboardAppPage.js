@@ -19,13 +19,14 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
+import { getCountsReport } from '../services/ReportService';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();
 
-  const [stat,setStat] = useState({total:7140,new:2120,today:1200,pending:200})
+  const [stat,setStat] = useState({totalCustomerCount:7140,todayNewCustomerCount:2120,todayOrderCount:1200,pendingOrderCount:200})
 
     const [reorderList,setReorderList] = useState(
       [...Array(5)].map((_, index) => ({
@@ -45,9 +46,9 @@ export default function DashboardAppPage() {
 
 
     useEffect(()=>{
-        // caller().then(({data})=>{ // TODO
-        //     setStat(data)
-        // })
+      getCountsReport().then(({data})=>{ 
+            setStat(data)
+        })
 
         // caller().then(({data})=>{ // TODO
         //     setPopularMenu(data)
@@ -74,19 +75,20 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Today Customers" total={stat.today} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Total Customers" total={stat.totalCustomerCount  === 0 ? 'Empty':stat.totalCustomerCount} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Customers" total={stat.new} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Today New Customers" total={stat.todayNewCustomerCount === 0 ? 'No New Customers':stat.todayNewCustomerCount} color="info" icon={'ant-design:apple-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total" total={stat.total} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Today Orders" total={stat.todayOrderCount === 0 ? 'No Orders Yet':stat.todayOrderCount} color="warning" icon={'ant-design:windows-filled'} />
+            
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Pending Orders" total={stat.pending} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Pending Orders" total={stat.pendingOrderCount === 0 ? 'No Pending Orders':stat.pendingOrderCount} color="error" icon={'ant-design:bug-filled'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
