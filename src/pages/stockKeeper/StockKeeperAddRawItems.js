@@ -125,11 +125,10 @@ export default function StockKeeperAddRawItems() {
                     />
                   </Grid>
 
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                  <Grid item xs={12} sm={12} md={12} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
                     <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }}>Cancel</Button>
-                  </Grid>
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
                     <Button style={{ backgroundColor: '#007E05', color: '#FFF', margin: '5px' }}>Save</Button>
+                  
                   </Grid>
                 </Grid>
                 
