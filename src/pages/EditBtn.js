@@ -21,7 +21,7 @@ export default function EditBtn({price, qty, id, onChange, handleDelete}){
         <>
             <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","padding":"2px"}}>
                 {edit ?
-                    <input type={"text"} value={val} onChange={(e)=>setVal(parseInt(e.target.value, 10))} /> :
+                    <input type={"number"} min="0" value={val} onChange={(e)=>setVal(Math.abs(parseInt(e.target.value, 10)))} /> :
                     <>{val}</>}
                 <Button style={{"backgroundColor":"#7E0000","color":"#FFF","margin-top":"5px"}} onClick={()=>handleDelete(id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{"height":"22px","width":"22px"}}>
@@ -30,7 +30,7 @@ export default function EditBtn({price, qty, id, onChange, handleDelete}){
                 </Button>
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column","padding":"2px"}}>
-            {price}
+            {price*val}
             <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin-top":"5px"}} onClick={()=>setEdit(i=>!i)}>Edit
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{"height":"22px","width":"22px","marginLeft":"10px"}}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
