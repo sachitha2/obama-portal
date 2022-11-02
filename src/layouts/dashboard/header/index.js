@@ -129,6 +129,10 @@ export default function Header({ onOpenNav }) {
             <Link to="customer-cart" style={{"textDecoration":'none'}}>
               <Button variant={pathname==='/dashboard/customer-cart'?"contained":'text'}>Cart</Button>
             </Link>
+            <Link to="customer-menu" style={{"textDecoration":'none'}}>
+              <Button variant={pathname==='/dashboard/customer-menu'?"contained":'text'}>Menu</Button>
+            </Link>
+            
           </>
           :
           null
