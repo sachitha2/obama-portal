@@ -50,10 +50,10 @@ export default function CustomerCartMenu() {
           
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={6} sm={6} md={6}>
-              <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2019-honda-civic-sedan-1558453497.jpg?crop=1xw:0.9997727789138833xh;center,top&resize=480:*" alt="helloo"/>
+              <img src='' alt="Rice"/>
             </Grid>
             <Grid item xs={6} sm={6} md={6} style={{"display":"flex","flexDirection":"column","padding":"10px","justifyContent":"space-around"}}>
-              Item name here
+              Fried Rice
               <Button style={{"backgroundColor":"#FFF","color":"#000","margin-top":"5px","width":"50px","position":"relative","top":"15px","right":"-100px"}}>+ Add</Button>
               </Grid>
           </Grid>
@@ -64,10 +64,10 @@ export default function CustomerCartMenu() {
           
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={6} sm={6} md={6}>
-              <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2019-honda-civic-sedan-1558453497.jpg?crop=1xw:0.9997727789138833xh;center,top&resize=480:*" alt="helloo"/>
+              <img src="*" alt="Kottu"/>
             </Grid>
             <Grid item xs={6} sm={6} md={6} style={{"display":"flex","flexDirection":"column","padding":"10px","justifyContent":"space-around"}}>
-              Item name here
+              Kottu
               <Button style={{"backgroundColor":"#FFF","color":"#000","margin-top":"5px","width":"50px","position":"relative","top":"15px","right":"-100px"}}>+ Add</Button>
               </Grid>
           </Grid>

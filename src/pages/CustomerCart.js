@@ -60,7 +60,7 @@ export default function CustomerCart() {
           
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2019-honda-civic-sedan-1558453497.jpg?crop=1xw:0.9997727789138833xh;center,top&resize=480:*" alt="helloo"/>
+              <img src="" alt="Item"/>
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
               item name

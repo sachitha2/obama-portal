@@ -1,12 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import {useEffect, useState, useCallback} from 'react';
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { getOrderRequests, acceptOrder } from '../services/OrderService';
 
 
 export default function OrderRequests() {
 
   const [data,setData] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleOrder = useCallback((orderId,status)=>{ // accept/reject
     // TODO handle api call to reject or accept
@@ -22,6 +25,7 @@ export default function OrderRequests() {
         setData(out);
       })
     }
+
     fetchData();
   },[handleOrder])
 
