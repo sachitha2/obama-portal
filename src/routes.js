@@ -20,6 +20,9 @@ import CashierDashboard from './pages/cashier/CashierDashboard';
 import CashierPlaceOrder from './pages/cashier/CashierPlaceOrder';
 import CustomerCart from './pages/CustomerCart';
 import CustomerCartMenu from './pages/CustomerCartMenu';
+import StockKeeperAddRawItems from './pages/stockKeeper/StockKeeperAddRawItems';
+import StockKeeperRetrieveRawItems from './pages/stockKeeper/StockKeeperRetrieveRawItems';
+import StockKeeperSetReOrderLevel from './pages/stockKeeper/StockKeeperSetReOrderLevel';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +37,9 @@ export default function Router() {
         { path: 'user', element: <UserPage /> },
         { path: 'menu-selector-page', element: <MenuSelectorPage /> },
         { path: 'accepted-orders', element: <AcceptedOrders /> },
+        { path: 'stock-keeper-add-raw-items', element: <StockKeeperAddRawItems /> },
+        { path: 'stock-keeper-set-re-order-level', element: <StockKeeperSetReOrderLevel/> },
+        { path: 'stock-keeper-retrieve-raw-items', element: <StockKeeperRetrieveRawItems/> },
         { path: 'order-requests', element: <OrderRequests /> },
         { path: 'customer-cart', element: <CustomerCart /> },
         { path: 'customer-menu', element: <CustomerCartMenu /> },
@@ -60,7 +66,7 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/login" />, index: true },
         { path: '404', element: <Page404 /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
