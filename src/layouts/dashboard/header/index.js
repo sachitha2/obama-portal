@@ -48,7 +48,7 @@ export default function Header({ onOpenNav }) {
     // KITCHEN_MANAGER ,ADMIN, CUSTOMER, CASHIER,STOCK_KEEPER
     const role = getCookie('role');
     setUserRole(role);
-    setUserRole('CASHIER')
+    setUserRole('CUSTOMER')
   }, [])
 
   const navigate = useNavigate();
@@ -126,7 +126,9 @@ export default function Header({ onOpenNav }) {
           }
 
           {USER_ROLE === "CUSTOMER" ? <>
-          CUSTOMER
+            <Link to="customer-cart" style={{"textDecoration":'none'}}>
+              <Button variant={pathname==='/dashboard/customer-cart'?"contained":'text'}>Cart</Button>
+            </Link>
           </>
           :
           null

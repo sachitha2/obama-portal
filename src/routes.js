@@ -18,6 +18,7 @@ import LoginPageCustomerVerify from './pages/LoginPageCustomerVerify';
 import LoginPageCustomer from './pages/LoginPageCustomer';
 import CashierDashboard from './pages/cashier/CashierDashboard';
 import CashierPlaceOrder from './pages/cashier/CashierPlaceOrder';
+import CustomerCart from './pages/CustomerCart';
 
 // ----------------------------------------------------------------------
 
@@ -33,6 +34,7 @@ export default function Router() {
         { path: 'menu-selector-page', element: <MenuSelectorPage /> },
         { path: 'accepted-orders', element: <AcceptedOrders /> },
         { path: 'order-requests', element: <OrderRequests /> },
+        { path: 'customer-cart', element: <CustomerCart /> },
         { path: 'admin-generate-reports', element: <AdminGenerateReports /> },
         { path: 'admin-manage-staff', element: <AdminManageStaff/> },
         { path: 'admin-manage-items', element: <AdminManageItems/> },
