@@ -75,6 +75,7 @@ export default function CustomerCart() {
               </Grid>
           </Grid>
           </div>
+        <Divider/> 
         
       </Container>
     </>
