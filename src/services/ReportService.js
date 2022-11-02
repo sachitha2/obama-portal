@@ -15,3 +15,7 @@ export async function getStoresReport() {
 export async function getCountsReport() {
     return axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/customer/counts`)
 }
+
+export async function getPopulaMenu() {
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/popularMenu/counts`)
+}
