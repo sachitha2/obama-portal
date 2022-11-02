@@ -99,24 +99,35 @@ export default function StockKeeperAddRawItems() {
               <Box sx={style}>
                 <>
                 
-
                 <Grid container padding={2} columns={{ xs: 12, sm: 12, md: 12 }}>
                   <Grid item xs={12} sm={12} md={12} padding={2}>
                     <Typography style={{"textAlign":"center"}} id="modal-modal-title" variant="h6" component="h2">
-                    Add a Items
+                      Add Raw Items
                     </Typography>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
                     Item
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
                     Added Qty
                   </Grid>
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
+                    Price Per Unit
+                  </Grid>
 
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
                     Lunu
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
+                    <TextField
+                      name="date"
+                      type="text"
+                      // value={forDate}
+                      // onChange={(e) => setForDate(e.target.value)}
+                    />
+                  </Grid>
+
+                  <Grid item xs={4} sm={4} md={4} padding={1}>
                     <TextField
                       name="date"
                       type="text"
@@ -131,6 +142,7 @@ export default function StockKeeperAddRawItems() {
                   
                   </Grid>
                 </Grid>
+                
                 
               </>
               </Box>

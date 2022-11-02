@@ -48,7 +48,6 @@ export default function Header({ onOpenNav }) {
     // KITCHEN_MANAGER ,ADMIN, CUSTOMER, CASHIER,STOCK_KEEPER
     const role = getCookie('role');
     setUserRole(role);
-    setUserRole('STOCK_KEEPER')
   }, [])
 
   const navigate = useNavigate();
@@ -156,7 +155,7 @@ export default function Header({ onOpenNav }) {
           }
 
 
-          {USER_ROLE === "STOCK_KEEPER" ? <>
+          {USER_ROLE === "STORE_KEEPER" ? <>
           <Link to="stock-keeper-retrieve-raw-items" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/stock-keeper-retrieve-raw-items'?"contained":'text'}>Retrieve Raw Items</Button>
           </Link>

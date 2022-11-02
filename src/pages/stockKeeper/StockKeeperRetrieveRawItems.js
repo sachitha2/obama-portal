@@ -102,32 +102,20 @@ export default function StockKeeperRetrieveRawItems() {
                 <Grid container padding={2} columns={{ xs: 12, sm: 12, md: 12 }}>
                   <Grid item xs={12} sm={12} md={12} padding={2}>
                     <Typography style={{"textAlign":"center"}} id="modal-modal-title" variant="h6" component="h2">
-                      Retrive Raw Items
+                    Retrieve Items
                     </Typography>
                   </Grid>
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
+                  <Grid item xs={6} sm={6} md={6} padding={1}>
                     Item
                   </Grid>
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
-                    Retrieving Qty
-                  </Grid>
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
-                    Price Per Unit
+                  <Grid item xs={6} sm={6} md={6} padding={1}>
+                    Retrieved Qty
                   </Grid>
 
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
+                  <Grid item xs={6} sm={6} md={6} padding={1}>
                     Lunu
                   </Grid>
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
-                    <TextField
-                      name="date"
-                      type="text"
-                      // value={forDate}
-                      // onChange={(e) => setForDate(e.target.value)}
-                    />
-                  </Grid>
-
-                  <Grid item xs={4} sm={4} md={4} padding={1}>
+                  <Grid item xs={6} sm={6} md={6} padding={1}>
                     <TextField
                       name="date"
                       type="text"
