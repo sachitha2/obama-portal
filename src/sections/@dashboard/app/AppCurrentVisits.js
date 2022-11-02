@@ -52,7 +52,7 @@ export default function AppCurrentVisits({ title, subheader, chartColors, chartD
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
     tooltip: {
-      fillSeriesColor: false,
+      fillSeriesColor: true,
       y: {
         formatter: (seriesName) => fNumber(seriesName),
         title: {

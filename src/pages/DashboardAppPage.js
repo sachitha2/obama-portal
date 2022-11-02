@@ -19,7 +19,7 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
-import { getCountsReport } from '../services/ReportService';
+import { getCountsReport, getPopulaMenu } from '../services/ReportService';
 
 // ----------------------------------------------------------------------
 
@@ -48,6 +48,10 @@ export default function DashboardAppPage() {
     useEffect(()=>{
       getCountsReport().then(({data})=>{ 
             setStat(data)
+        })
+
+        getPopulaMenu().then(({data})=>{ 
+          setPopularMenu(data)
         })
 
         // caller().then(({data})=>{ // TODO
