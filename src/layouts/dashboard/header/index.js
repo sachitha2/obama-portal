@@ -156,17 +156,17 @@ export default function Header({ onOpenNav }) {
           }
 
 
-          {USER_ROLE === "STOCK_KEEPER" ? <>
+          {USER_ROLE === "STORE_KEEPER" ? <>
+          <Link to="stock-keeper-add-raw-items" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/stock-keeper-add-raw-items'?"contained":'text'}>Add Raw Items</Button>
+          </Link>
+          
           <Link to="stock-keeper-retrieve-raw-items" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/stock-keeper-retrieve-raw-items'?"contained":'text'}>Retrieve Raw Items</Button>
           </Link>
 
           <Link to="stock-keeper-set-re-order-level" style={{"textDecoration":'none'}}>
             <Button variant={pathname==='/dashboard/stock-keeper-set-re-order-level'?"contained":'text'}>Set Re-Order Level</Button>
-          </Link>
-
-          <Link to="stock-keeper-add-raw-items" style={{"textDecoration":'none'}}>
-            <Button variant={pathname==='/dashboard/stock-keeper-add-raw-items'?"contained":'text'}>Add Raw Items</Button>
           </Link>
           </>
           :

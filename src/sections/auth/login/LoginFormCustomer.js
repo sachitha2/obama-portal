@@ -6,7 +6,7 @@ import { LoadingButton } from '@mui/lab';
 // components
 import { setCookie } from '../../../utils/cookies';
 import Iconify from '../../../components/iconify';
-import { login } from "../../../services/loginServices";
+import { customerLogin } from "../../../services/loginServices";
 
 // ----------------------------------------------------------------------
 
@@ -16,10 +16,11 @@ export default function LoginFormCustomer() {
     const [mobileNumber, setMobileNumber] = useState('');
 
     const handleClick = async () => {
-        login(mobileNumber).then(result => {
-                setCookie('userId', result.data.userId);
-                setCookie('role', result.data.role);
-                navigate('/dashboard', { replace: true });
+        customerLogin(mobileNumber).then(result => {
+            
+                setCookie('userId', result.data);
+                setCookie('role', "CUSTOMER");
+                navigate('/dashboard/customer-menu', { replace: true });
             }).catch(e => {
                 alert(e.response.data)
             })
@@ -42,7 +43,7 @@ export default function LoginFormCustomer() {
             <br />
 
             <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
-                Send OTP
+                Login
             </LoadingButton>
         </>
     );

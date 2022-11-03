@@ -3,9 +3,11 @@ import { styled } from '@mui/material/styles';
 import {useEffect, useState, useCallback} from 'react';
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
 import {useAtom} from "jotai";
-import { getOrderRequests, acceptOrder } from '../services/OrderService';
+import { useNavigate } from 'react-router-dom';
+import { getOrderRequests, acceptOrder, placeOrder, addMenuInstance } from '../services/OrderService';
 import {MYCART} from "./CustomerCartMenu";
 import EditBtn from "./EditBtn";
+import { getCookie } from '../utils/cookies';
 
 
 
@@ -15,7 +17,10 @@ export default function CustomerCart() {
 
   const [data,setData] = useState([]);
   const [cart,setCart]=useAtom(MYCART)
+  const [total, settotal] = useState(0);
 
+  const navigate = useNavigate();
+  const userId = getCookie('userId');
 
   const handleOrder = useCallback((orderId,status)=>{ // accept/reject
     // TODO handle api call to reject or accept
@@ -34,6 +39,14 @@ export default function CustomerCart() {
     fetchData();
   },[handleOrder])
 
+  useEffect(() => {
+    let t=0;
+    cart.map(e=>{t+=e.price*e.qty; return 0;});
+    console.log(t);
+    
+    settotal(t);
+  }, [cart])
+
   const handleDelete = useCallback((item)=>{
     setCart(c=>c.filter(i=>i.id!==item))
   },[setCart, cart])
@@ -49,7 +62,13 @@ export default function CustomerCart() {
 
 
   const handleSubmit = useCallback(()=>{
-    alert(JSON.stringify(cart,null,2))
+      
+      placeOrder(total,userId).then(({data})=>
+          addMenuInstance(userId,data.orderId,cart).then((res)=>
+          console.log(res)
+          ))
+          alert("Order Placed Successfully");
+          navigate('/dashboard/customer-menu');
   },[cart])
 
   return (
@@ -57,7 +76,7 @@ export default function CustomerCart() {
       <Helmet>
         <title> Customer </title>
       </Helmet>
-      {JSON.stringify(cart)}
+      
       <Container>
         <Typography variant="h2" sx={{ mb: 5 }}>
           My Cart
@@ -86,7 +105,7 @@ export default function CustomerCart() {
         <div>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              <img src="" alt="Item"/>
+              <img src={item.image} alt="Item"/>
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
               {item.name}
@@ -96,6 +115,15 @@ export default function CustomerCart() {
           </div>
         <Divider/>
         </>))}
+        <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+            <Grid item xs={3} sm={3} md={3}>
+             Sub Total 
+             </Grid>
+             <Grid item xs={3} sm={3} md={3}>
+             {total}
+             </Grid>
+        </Grid>
+        
         <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin-top":"5px"}} onClick={()=>handleSubmit()}>
          Submit
         </Button>

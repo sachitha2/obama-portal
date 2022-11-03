@@ -4,16 +4,10 @@ import {useEffect, useState, useCallback} from 'react';
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
 import {atom, useAtom} from "jotai";
 import { getOrderRequests, acceptOrder } from '../services/OrderService';
+import { getMenuItems } from '../services/MenuService';
 
 
-export const MYCART = atom([{
-  id:1,
-  name:"kottu",
-  price:350,
-  type:'RICE SPECIALITIES',
-  image:'/',
-  qty:1
-}])
+export const MYCART = atom([])
 
 export default function CustomerCartMenu() {
 
@@ -43,31 +37,40 @@ export default function CustomerCartMenu() {
 
   useEffect(()=>{
     // API call to fetch menu data  TODO
-    setMenu([{
-      id:1,
-      name:"kottu",
-      price:350,
-      type:'RICE SPECIALITIES',
-      image:'/'
-    },{
-      id:2,
-      name:"Rice",
-      price:250,
-      type:'RICE SPECIALITIES',
-      image:'/'
-    },{
-        id:3,
-        name:"Lime Juice",
-        price:100,
-        type:'BEVERAGES',
-        image:'/'
-      },{
-      id:4,
-      name:"Noodles",
-      price:100,
-      type:'QUICK FOODS',
-      image:'/'
-    }])
+    const fetchData = () =>{
+      getMenuItems().then(data =>{
+        const out = data.data.map(d=>({id:d.menuId,name:d.menuName,price:parseFloat(d.price),type:d.type,image:d.imageUrl}))
+        console.log(out);
+        
+        setMenu(out);
+      })
+    }
+    fetchData();
+    // setMenu([{
+    //   id:1,
+    //   name:"kottu",
+    //   price:350,
+    //   type:'RICE SPECIALITIES',
+    //   image:'/'
+    // },{
+    //   id:2,
+    //   name:"Rice",
+    //   price:250,
+    //   type:'RICE SPECIALITIES',
+    //   image:'/'
+    // },{
+    //     id:3,
+    //     name:"Lime Juice",
+    //     price:100,
+    //     type:'BEVERAGES',
+    //     image:'/'
+    //   },{
+    //   id:4,
+    //   name:"Noodles",
+    //   price:100,
+    //   type:'QUICK FOODS',
+    //   image:'/'
+    // }])
 
   },[])
 
@@ -75,21 +78,25 @@ export default function CustomerCartMenu() {
     // API call to fetch menu data  TODO
     setCategory([{
       id:1,
-      name:"RICE SPECIALITIES",
+      name:"RICE_SPECIALITIES",
     },{
       id:2,
       name:"BEVERAGES",
     },{
       id:3,
-      name:"QUICK FOODS",
-    }])
+      name:"DESSERTS",
+    },{
+      id:4,
+      name:"KOTHTHU",
+    }
+  ])
 
   },[])
 
   useEffect(()=>{
     if(itemType==='ALL') setMenutoShow(menu); else
       setMenutoShow(menu.filter(m=>m.type===itemType))
-  },[itemType])
+  },[itemType,menu])
 
   const handleAddToCart = useCallback((item)=>{
     if(cart.findIndex(i=>i.id===item.id) === -1) {
@@ -110,7 +117,6 @@ export default function CustomerCartMenu() {
       </Helmet>
 
       <Container>
-        {JSON.stringify(cart)}
         <Typography variant="h2" sx={{ mb: 5 }}>
           Menu - {itemType.toLowerCase()
             .split(' ')
@@ -124,6 +130,7 @@ export default function CustomerCartMenu() {
               .split(' ')
               .map(word => word.charAt(0).toUpperCase() + word.slice(1))
               .join(' ')
+              .replace('_',' ')
           }</Button>
           )}
           {/* <Button onClick={()=>setItemType('BEVERAGES')}  variant={itemType==='BEVERAGES'?"contained":'text'}   style={{"margin":"5px"}}>Beverages</Button> */}
