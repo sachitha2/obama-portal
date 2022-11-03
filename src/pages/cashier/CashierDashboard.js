@@ -81,20 +81,20 @@ export default function CashierDashboard() {
       status:"unAvailable"
     },
     {
-      id:1,
+      id:5,
       status:"available"
     },
     {
-      id:2,
+      id:6,
       status:"unAvailable"
     },
     {
-      id:3,
+      id:7,
       status:"unAvailable"
     },
 
     {
-      id:4,
+      id:8,
       status:"unAvailable"
     },
 ])
@@ -114,7 +114,7 @@ export default function CashierDashboard() {
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-          <Grid item xs={12} sm={12} md={12} padding={1} spacing={1}>
+          <Grid item xs={12} sm={12} md={12} padding={1} spacing={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
             {
               tableBtn.map((data,index)=>(
                 <Button key={index} onClick={handleOpen} variant="contained" style={data.status === "available"?{"margin":"5px","backgroundColor":"#175A00"}: {"margin":"5px","backgroundColor":"#C70606"}}>
