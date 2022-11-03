@@ -15,6 +15,8 @@ import {
   Box,
 } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
+
+import {useNavigate } from 'react-router-dom';
 // components
 import { ProductList } from '../../sections/@dashboard/products';
 // mock
@@ -35,6 +37,8 @@ const style = {
 };
 
 export default function CashierPlaceOrder() {
+
+  const navigate = useNavigate();
   const [data, setData] = useState([
     {
       orderId: 122,
@@ -96,16 +100,53 @@ export default function CashierPlaceOrder() {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Add a Item
-                </Typography>
-                <TextField
-                sx={{ color: '#F0F' }}
-                name="date"
-                type="text"
-                value={forDate}
-                onChange={(e) => setForDate(e.target.value)}
-              />
+              <Grid container padding={2} columns={{ xs: 12, sm: 12, md: 12 }}>
+                                    <Grid item xs={12} sm={12} md={12} padding={2}>
+                                        <Typography style={{"textAlign":"center"}} id="modal-modal-title" variant="h6" component="h2">
+                                          Customer Details
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      First Name
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      <TextField
+                                              name="date"
+                                              type="text"
+                                              inputProps={{ style: { color: "black" } }}
+                                              // value={amount}
+                                              // onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                          />
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      Last Name
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      <TextField
+                                            name="date"
+                                            type="text"
+                                            inputProps={{ style: { color: "black" } }}
+                                            // value={amount}
+                                            // onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      Tel number
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                      <TextField
+                                              name="date"
+                                              type="text"
+                                              inputProps={{ style: { color: "black" } }}
+                                              // value={amount}
+                                              // onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                          />
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
+                                        <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }} onClick={handleClose}>Cancel</Button>
+                                        <Button style={{ backgroundColor: '#007E05', color: '#FFF', margin: '5px' }} onClick={()=> navigate('/dashboard/cashier-menu')}>Order Now</Button>
+                                    </Grid>
+                                </Grid>
               </Box>
             </Modal>
           </Grid>
