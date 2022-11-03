@@ -58,9 +58,11 @@ export default function CashierPlaceOrder() {
   const [expenseForDate, setExpenseForDate] = useState('');
   const [expenseForMonth, setExpenseForMonth] = useState('');
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [search,setSearch] = useState('')
 
   const handleChange = (event) => {
     setForMonth(event.target.value);
@@ -75,12 +77,18 @@ export default function CashierPlaceOrder() {
         <Typography variant="h2" sx={{ mb: 5 }}>
           Place Order
         </Typography>
+        
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-          <Grid item xs={3} sm={3} md={3}>
-            <Button onClick={handleOpen} variant="contained">
-              + Item
+          <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="space-between">
+            <TextField name="Search" label="Customer Mobile Number" value={search} onChange={e => setSearch(e.target.value)} />
+            <Button onClick={handleOpen} variant="contained" style={{"borderRadius":"100px","width":"65px","height":"65px","fontSize":"30px"}}>
+                  +
             </Button>
+          </Grid>
+          
+          <Grid item xs={3} sm={3} md={3}>
+            
             <Modal
               open={open}
               onClose={handleClose}
@@ -102,23 +110,29 @@ export default function CashierPlaceOrder() {
             </Modal>
           </Grid>
         </Grid>
+        {/* <Divider sx={{ bgcolor: '#B5986D' }} /> */}
+        <div>
+          <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+            <Grid item xs={3} sm={3} md={3}>
+              Contact No
+            </Grid>
+            <Grid item xs={3} sm={3} md={3}>
+              Customer Name
+            </Grid>
+          </Grid>
+        </div>
+
         <Divider sx={{ bgcolor: '#B5986D' }} />
         <div>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              Generate Report For Date
+              071-5591137
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              <TextField
-                style={{ color: 'white' }}
-                name="date"
-                type="date"
-                value={forDate}
-                onChange={(e) => setForDate(e.target.value)}
-              />
+              Sam wilson
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Print</Button>
+              <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Order Now</Button>
             </Grid>
           </Grid>
         </div>
