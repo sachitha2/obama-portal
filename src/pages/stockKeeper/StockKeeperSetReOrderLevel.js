@@ -3,7 +3,7 @@ import {useCallback, useEffect, useState} from "react";
 // @mui
 import { Container, Typography,Grid,Button,Divider,TextField,Modal,Box } from '@mui/material';
 import { getAcceptedOrders, prepareOrder } from '../../services/OrderService';
-import StockKeeperAddRawItemModal from "./StockKeeperAddRawItemModal";
+import StockKeeperSetReOrderLevelModal from "./StockKeeperSetReOrderLevelModal";
 import {getAllItems} from "../../services/InventoryService";
 
 
@@ -17,6 +17,9 @@ export default function StockKeeperSetReOrderLevel() {
 
 
   const handleRefresh = useCallback(()=>{ // assign / prepare
+    getAllItems().then(({data}) =>{
+      setData(data);
+    })
   },[])
 
   useEffect(()=>{
@@ -28,7 +31,7 @@ export default function StockKeeperSetReOrderLevel() {
   useEffect(()=>{
     if(search==="") setDataToShow(data)
     else{
-      setDataToShow(data.filter(i=>i.itemName.contains(search)))
+      setDataToShow(data.filter(i=>i.itemName.toLowerCase().includes(search.toLowerCase())))
     }
   },[data,search])
 
@@ -62,7 +65,7 @@ export default function StockKeeperSetReOrderLevel() {
         <Divider sx={{ bgcolor: "#B5986D" }}/>
 
         {dataToShow.map(d=>
-            <StockKeeperAddRawItemModal key={d.itemId} data={d}
+            <StockKeeperSetReOrderLevelModal key={d.itemId} data={d}
                                         onSave={handleRefresh}
             />
         )}
