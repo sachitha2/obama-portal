@@ -62,6 +62,43 @@ export default function CashierDashboard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [tableBtn,setTableBtn] = useState([
+    {
+      id:1,
+      status:"available"
+    },
+    {
+      id:2,
+      status:"unAvailable"
+    },
+    {
+      id:3,
+      status:"unAvailable"
+    },
+
+    {
+      id:4,
+      status:"unAvailable"
+    },
+    {
+      id:1,
+      status:"available"
+    },
+    {
+      id:2,
+      status:"unAvailable"
+    },
+    {
+      id:3,
+      status:"unAvailable"
+    },
+
+    {
+      id:4,
+      status:"unAvailable"
+    },
+])
+
   const handleChange = (event) => {
     setForMonth(event.target.value);
   };
@@ -77,29 +114,15 @@ export default function CashierDashboard() {
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-          <Grid item xs={3} sm={3} md={3}>
-            <Button onClick={handleOpen} variant="contained">
-              + Item
-            </Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Add a Item
-                </Typography>
-                <TextField
-                sx={{ color: '#F0F' }}
-                name="date"
-                type="text"
-                value={forDate}
-                onChange={(e) => setForDate(e.target.value)}
-              />
-              </Box>
-            </Modal>
+          <Grid item xs={12} sm={12} md={12} padding={1} spacing={1}>
+            {
+              tableBtn.map((data,index)=>(
+                <Button key={index} onClick={handleOpen} variant="contained" style={data.status === "available"?{"margin":"5px","backgroundColor":"#175A00"}: {"margin":"5px","backgroundColor":"#C70606"}}>
+                  Table <br/>
+                  {data.id}
+                </Button>
+              ))
+            }
           </Grid>
         </Grid>
         <Divider sx={{ bgcolor: '#B5986D' }} />
