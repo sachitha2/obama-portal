@@ -75,7 +75,7 @@ export default function CashierMenu() {
         <Typography variant="h2" sx={{ mb: 5 }}>
            Menu
         </Typography>
-
+        <ProductList />
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
           <Grid item xs={3} sm={3} md={3}>
             <Button onClick={handleOpen} variant="contained">
