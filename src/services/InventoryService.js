@@ -5,9 +5,9 @@ export async function getAllItems() {
     return axios.get(`${process.env.REACT_APP_API_BASE_URL}/inventory/item`, )
 }
 
-export async function addQuantity(itemId,quantity,userId) {
+export async function addQuantity(itemId,quantity,unitPrice,userId) {
     return axios.put(`${process.env.REACT_APP_API_BASE_URL}/inventory/quantity/add/${itemId}`,{
-        userId,quantity
+        userId,unitPrice,quantity
     } )
 }
 

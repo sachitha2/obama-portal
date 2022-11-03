@@ -5,6 +5,7 @@ import { Container, Typography,Grid,Button,Divider,TextField,Modal,Box } from '@
 import { getAcceptedOrders, prepareOrder } from '../../services/OrderService';
 import StockKeeperAddRawItemModal from "./StockKeeperAddRawItemModal";
 import {getAllItems} from "../../services/InventoryService";
+import StockKeeperRetriveRawItemModal from './StockKeeperRetriveRawItemModal';
 
 export default function StockKeeperRetrieveRawItems() {
 
@@ -14,6 +15,9 @@ export default function StockKeeperRetrieveRawItems() {
 
 
   const handleRefresh = useCallback(()=>{ // assign / prepare
+    getAllItems().then(({data}) =>{
+      setData(data);
+    })
   },[])
 
   useEffect(()=>{
@@ -25,7 +29,7 @@ export default function StockKeeperRetrieveRawItems() {
   useEffect(()=>{
     if(search==="") setDataToShow(data)
     else{
-      setDataToShow(data.filter(i=>i.itemName.contains(search)))
+      setDataToShow(data.filter(i=>i.itemName.toLowerCase().includes(search.toLowerCase())))
     }
   },[data,search])
 
@@ -57,7 +61,7 @@ export default function StockKeeperRetrieveRawItems() {
         <Divider sx={{ bgcolor: "#B5986D" }}/>
 
         {dataToShow.map(d=>
-            <StockKeeperAddRawItemModal key={d.itemId} data={d}
+            <StockKeeperRetriveRawItemModal key={d.itemId} data={d}
                                         onSave={handleRefresh}
             />
         )}

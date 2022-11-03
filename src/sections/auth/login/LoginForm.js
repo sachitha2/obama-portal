@@ -31,6 +31,7 @@ export default function LoginForm() {
                 case 'ADMIN': navigate('/dashboard'); break;
                 case 'KITCHEN_MANAGER': navigate('/dashboard/menu-selector-page'); break;
                 case 'CASHIER': navigate('/dashboard/cashier-dashboard'); break;
+                case 'STORE_KEEPER': navigate('/dashboard/stock-keeper-add-raw-items'); break;
                 default: navigate('/dashboard');
             }
         }).catch(e => {

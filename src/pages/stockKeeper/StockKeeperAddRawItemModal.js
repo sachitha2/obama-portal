@@ -23,12 +23,13 @@ const StockKeeperAddRawItemModal = ({data,onSave}) => {
     const handleClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
     const [amount,setAmount] = useState(data.amount);
+    const [unitPrice, setunitPrice] = useState(0);
     const userId = getCookie('userId');
 
     const handleSave = ()=>{
-        addQuantity(data.itemId,amount,userId).then(()=>{
-            handleClose()
+        addQuantity(data.itemId,amount,unitPrice,userId).then(()=>{
             onSave()
+            handleClose()
         })
     }
 
@@ -67,23 +68,36 @@ const StockKeeperAddRawItemModal = ({data,onSave}) => {
                                         Item
                                     </Grid>
                                     <Grid item xs={6} sm={6} md={6} padding={1}>
+                                        {data.itemName}
+                                    </Grid>
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
                                         Added Qty
                                     </Grid>
-
                                     <Grid item xs={6} sm={6} md={6} padding={1}>
-                                        {data.itemName}
+                                        Unit Price
+                                    </Grid>
+                                    
+                                    <Grid item xs={6} sm={6} md={6} padding={1}>
+                                        <TextField
+                                            name="date"
+                                            type="text"
+                                            inputProps={{ style: { color: "black" } }}
+                                            value={amount}
+                                            onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                        />
                                     </Grid>
                                     <Grid item xs={6} sm={6} md={6} padding={1}>
                                         <TextField
                                             name="date"
                                             type="text"
-                                            value={amount}
-                                            onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                            inputProps={{ style: { color: "black" } }}
+                                            value={unitPrice}
+                                            onChange={(e) => setunitPrice(parseFloat(e.target.value))}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12} sm={12} md={12} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                                        <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }} onCanPlay={handleClose}>Cancel</Button>
+                                        <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }} onClick={handleClose}>Cancel</Button>
                                         <Button style={{ backgroundColor: '#007E05', color: '#FFF', margin: '5px' }} onClick={handleSave}>Save</Button>
                                     </Grid>
                                 </Grid>

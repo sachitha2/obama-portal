@@ -26,8 +26,8 @@ const StockKeeperSetReOrderLevelModal = ({data,onSave}) => {
 
     const handleSave = ()=>{
         updateReorderLevel(data.itemId,amount).then(()=>{
-            handleClose()
             onSave()
+            handleClose()
         })
     }
 
@@ -41,7 +41,7 @@ const StockKeeperSetReOrderLevelModal = ({data,onSave}) => {
                     {data.itemName}
                 </Grid>
                 <Grid item xs={3} sm={3} md={3}>
-                    {data.quantity} units
+                    {data.reorderLevel} units
                 </Grid>
                 <Grid item xs={3} sm={3} md={3}>
                     <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={handleOpen}>Set</Button>
@@ -64,7 +64,7 @@ const StockKeeperSetReOrderLevelModal = ({data,onSave}) => {
                                         Item
                                     </Grid>
                                     <Grid item xs={6} sm={6} md={6} padding={1}>
-                                        Added Qty
+                                        Re Order Level
                                     </Grid>
                                     <Grid item xs={6} sm={6} md={6} padding={1}>
                                         {data.itemName}
@@ -73,12 +73,13 @@ const StockKeeperSetReOrderLevelModal = ({data,onSave}) => {
                                         <TextField
                                             name="date"
                                             type="text"
+                                            inputProps={{ style: { color: "black" } }}
                                             value={amount}
                                             onChange={(e) => setAmount(parseFloat(e.target.value))}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={12} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                                        <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }} onCanPlay={handleClose}>Cancel</Button>
+                                        <Button style={{ backgroundColor: '#C70606', color: '#FFF', margin: '5px' }} onClick={handleClose}>Cancel</Button>
                                         <Button style={{ backgroundColor: '#007E05', color: '#FFF', margin: '5px' }} onClick={handleSave}>Save</Button>
                                     </Grid>
                                 </Grid>

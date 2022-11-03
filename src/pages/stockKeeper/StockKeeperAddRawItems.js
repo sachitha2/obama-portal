@@ -28,19 +28,22 @@ export default function StockKeeperAddRawItems() {
 
 
   const handleRefresh = useCallback(()=>{ // assign / prepare
+    getAllItems().then(({data}) =>{
+      setData(data);
+    })
     },[])
 
   useEffect(()=>{
     getAllItems().then(({data}) =>{
         setData(data);
       })
-  },[handleRefresh])
+  },[]) 
 
 
   useEffect(()=>{
     if(search==="") setDataToShow(data)
     else{
-      setDataToShow(data.filter(i=>i.itemName.contains(search)))
+      setDataToShow(data.filter(i=>i.itemName.toLowerCase().includes(search.toLowerCase())))
     }
   },[data,search])
 
@@ -72,7 +75,7 @@ export default function StockKeeperAddRawItems() {
         </Grid>
 
         <Divider sx={{ bgcolor: "#B5986D" }}/>
-
+        
         {dataToShow.map(d=>
         <StockKeeperAddRawItemModal key={d.itemId} data={d}
         onSave={handleRefresh}
