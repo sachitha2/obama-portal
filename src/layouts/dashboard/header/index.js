@@ -147,8 +147,12 @@ export default function Header({ onOpenNav }) {
             <Button variant={pathname==='/dashboard/cashier-place-order'?"contained":'text'}>Place Order</Button>
           </Link>
 
-          <Link to="admin-generate-reports" style={{"textDecoration":'none'}}>
-            <Button variant={pathname==='/dashboard/admin-generate-reports'?"contained":'text'}>Accept Payments</Button>
+          <Link to="cashier-accept-payments" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/cashier-accept-payments'?"contained":'text'}>Accept Payments</Button>
+          </Link>
+
+          <Link to="cashier-menu" style={{"textDecoration":'none'}}>
+            <Button variant={pathname==='/dashboard/cashier-menu'?"contained":'text'}>Menu</Button>
           </Link>
           </>
           :

@@ -73,7 +73,7 @@ export default function CashierPlaceOrder() {
 
       <Container>
         <Typography variant="h2" sx={{ mb: 5 }}>
-          Cashier Place Order
+          Place Order
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>

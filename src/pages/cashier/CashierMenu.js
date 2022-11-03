@@ -34,7 +34,7 @@ const style = {
   p: 4,
 };
 
-export default function CashierDashboard() {
+export default function CashierMenu() {
   const [data, setData] = useState([
     {
       orderId: 122,
@@ -62,106 +62,66 @@ export default function CashierDashboard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [tableBtn,setTableBtn] = useState([
-    {
-      id:1,
-      status:"available"
-    },
-    {
-      id:2,
-      status:"unAvailable"
-    },
-    {
-      id:3,
-      status:"unAvailable"
-    },
-
-    {
-      id:4,
-      status:"unAvailable"
-    },
-    {
-      id:5,
-      status:"available"
-    },
-    {
-      id:6,
-      status:"unAvailable"
-    },
-    {
-      id:7,
-      status:"unAvailable"
-    },
-
-    {
-      id:8,
-      status:"unAvailable"
-    },
-])
-
   const handleChange = (event) => {
     setForMonth(event.target.value);
   };
   return (
     <>
       <Helmet>
-        <title> Cashier : Dashboard</title>
+        <title> Cashier :  Menu</title>
       </Helmet>
 
       <Container>
         <Typography variant="h2" sx={{ mb: 5 }}>
-          Ongoing Orders
+           Menu
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-          <Grid item xs={12} sm={12} md={12} padding={1} spacing={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-            {
-              tableBtn.map((data,index)=>(
-                <Button key={index} onClick={handleOpen} variant="contained" style={data.status === "available"?{"margin":"5px","backgroundColor":"#175A00"}: {"margin":"5px","backgroundColor":"#C70606"}}>
-                  Table <br/>
-                  {data.id}
-                </Button>
-              ))
-            }
+          <Grid item xs={3} sm={3} md={3}>
+            <Button onClick={handleOpen} variant="contained">
+              + Item
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Add a Item
+                </Typography>
+                <TextField
+                sx={{ color: '#F0F' }}
+                name="date"
+                type="text"
+                value={forDate}
+                onChange={(e) => setForDate(e.target.value)}
+              />
+              </Box>
+            </Modal>
           </Grid>
         </Grid>
-        {/* <Divider sx={{ bgcolor: '#B5986D' }} /> */}
-        <div>
-          <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
-            <Grid item xs={3} sm={3} md={3}>
-              Order No
-            </Grid>
-            <Grid item xs={3} sm={3} md={3}>
-              Customer Name
-            </Grid>
-            <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Amount
-            </Grid>
-            <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Order Status
-            </Grid>
-          </Grid>
-        </div>
-
-        {/* Sample data start */}
         <Divider sx={{ bgcolor: '#B5986D' }} />
         <div>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              1004
+              Generate Report For Date
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              sachitha hirushan
+              <TextField
+                style={{ color: 'white' }}
+                name="date"
+                type="date"
+                value={forDate}
+                onChange={(e) => setForDate(e.target.value)}
+              />
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              750
-            </Grid>
-            <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Accepted
+              <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Print</Button>
             </Grid>
           </Grid>
         </div>
-        {/* Sample data end */}
       </Container>
     </>
   );
