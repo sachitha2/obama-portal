@@ -34,7 +34,7 @@ const style = {
   p: 4,
 };
 
-export default function CashierPlaceOrder() {
+export default function CashierAcceptPayments() {
   const [data, setData] = useState([
     {
       orderId: 122,
@@ -68,12 +68,12 @@ export default function CashierPlaceOrder() {
   return (
     <>
       <Helmet>
-        <title> ADMIN : Cashier Place Order</title>
+        <title> Cashier : Accept Payments</title>
       </Helmet>
 
       <Container>
         <Typography variant="h2" sx={{ mb: 5 }}>
-          Place Order
+          Accept Payments
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>

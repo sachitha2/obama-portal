@@ -18,11 +18,13 @@ import LoginPageCustomerVerify from './pages/LoginPageCustomerVerify';
 import LoginPageCustomer from './pages/LoginPageCustomer';
 import CashierDashboard from './pages/cashier/CashierDashboard';
 import CashierPlaceOrder from './pages/cashier/CashierPlaceOrder';
+import CashierAcceptPayments  from './pages/cashier/CashierAcceptPayments';
 import CustomerCart from './pages/CustomerCart';
 import CustomerCartMenu from './pages/CustomerCartMenu';
 import StockKeeperAddRawItems from './pages/stockKeeper/StockKeeperAddRawItems';
 import StockKeeperRetrieveRawItems from './pages/stockKeeper/StockKeeperRetrieveRawItems';
 import StockKeeperSetReOrderLevel from './pages/stockKeeper/StockKeeperSetReOrderLevel';
+import CashierMenu from './pages/cashier/CashierMenu';
 
 // ----------------------------------------------------------------------
 
@@ -48,6 +50,8 @@ export default function Router() {
         { path: 'admin-manage-items', element: <AdminManageItems/> },
         { path: 'cashier-dashboard', element: <CashierDashboard/> },
         { path: 'cashier-place-order', element: <CashierPlaceOrder/> },
+        { path: 'cashier-accept-payments', element: <CashierAcceptPayments/> },
+        { path: 'cashier-menu', element: <CashierMenu/>},
         { path: 'blog', element: <BlogPage /> },
       ],
     },

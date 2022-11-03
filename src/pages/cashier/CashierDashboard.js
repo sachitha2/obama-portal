@@ -68,12 +68,12 @@ export default function CashierDashboard() {
   return (
     <>
       <Helmet>
-        <title> ADMIN : Cashier Dashboard</title>
+        <title> Cashier : Dashboard</title>
       </Helmet>
 
       <Container>
         <Typography variant="h2" sx={{ mb: 5 }}>
-          Cashier Dashboard
+          Ongoing Orders
         </Typography>
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
