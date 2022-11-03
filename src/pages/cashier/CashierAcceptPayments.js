@@ -62,6 +62,8 @@ export default function CashierAcceptPayments() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [search,setSearch] = useState('')
+
   const handleChange = (event) => {
     setForMonth(event.target.value);
   };
@@ -78,9 +80,7 @@ export default function CashierAcceptPayments() {
 
         <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
           <Grid item xs={3} sm={3} md={3}>
-            <Button onClick={handleOpen} variant="contained">
-              + Item
-            </Button>
+            <TextField name="Search" label="Enter Order Number" value={search} onChange={e => setSearch(e.target.value)} />
             <Modal
               open={open}
               onClose={handleClose}
@@ -102,23 +102,36 @@ export default function CashierAcceptPayments() {
             </Modal>
           </Grid>
         </Grid>
+        {/* <Divider sx={{ bgcolor: '#B5986D' }} /> */}
+        <div>
+          <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
+            <Grid item xs={3} sm={3} md={3}>
+              Order Number
+            </Grid>
+            <Grid item xs={3} sm={3} md={3}>
+              Customer Name
+            </Grid>
+            <Grid item xs={3} sm={3} md={3}>
+              Amount
+              {/* <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Print</Button> */}
+            </Grid>
+          </Grid>
+        </div>
+
         <Divider sx={{ bgcolor: '#B5986D' }} />
         <div>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              Generate Report For Date
+              1001
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              <TextField
-                style={{ color: 'white' }}
-                name="date"
-                type="date"
-                value={forDate}
-                onChange={(e) => setForDate(e.target.value)}
-              />
+              Sahan Liyanage
             </Grid>
-            <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Print</Button>
+            <Grid item xs={3} sm={3} md={3}>
+              700.00
+            </Grid>
+            <Grid item xs={3} sm={3} md={3} >
+              <Button style={{ backgroundColor: '#175A00', color: '#FFF', margin: '5px' }}>Accept Payment</Button>
             </Grid>
           </Grid>
         </div>

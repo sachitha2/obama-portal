@@ -62,6 +62,8 @@ export default function CashierDashboard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [search,setSearch] = useState('')
+
   const [tableBtn,setTableBtn] = useState([
     {
       id:1,
