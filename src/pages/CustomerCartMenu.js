@@ -4,7 +4,7 @@ import {useEffect, useState, useCallback} from 'react';
 import { Container, Typography,Grid,Button,Divider } from '@mui/material';
 import {atom, useAtom} from "jotai";
 import { getOrderRequests, acceptOrder } from '../services/OrderService';
-import { getMenuItems } from '../services/MenuService';
+import { getAvailableMenuItems } from '../services/MenuService';
 
 
 export const MYCART = atom([])
@@ -18,27 +18,10 @@ export default function CustomerCartMenu() {
   const [itemType,setItemType] = useState('ALL')
   const [cart,setCart]=useAtom(MYCART)
 
-  const handleOrder = useCallback((orderId,status)=>{ // accept/reject
-    // TODO handle api call to reject or accept
-    acceptOrder(orderId);
-    console.log(orderId,status)
-  },[])
-
-  useEffect(()=>{
-    // API call to fetch data TODO
-    const fetchData = () =>{
-      getOrderRequests().then(data =>{
-        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.menuName,qty:item.quantity}))}))
-        setData(out);
-      })
-    }
-    fetchData();
-  },[handleOrder])
-
   useEffect(()=>{
     // API call to fetch menu data  TODO
     const fetchData = () =>{
-      getMenuItems().then(data =>{
+      getAvailableMenuItems().then(data =>{
         const out = data.data.map(d=>({id:d.menuId,name:d.menuName,price:parseFloat(d.price),type:d.type,image:d.imageUrl}))
         console.log(out);
         
@@ -46,31 +29,7 @@ export default function CustomerCartMenu() {
       })
     }
     fetchData();
-    // setMenu([{
-    //   id:1,
-    //   name:"kottu",
-    //   price:350,
-    //   type:'RICE SPECIALITIES',
-    //   image:'/'
-    // },{
-    //   id:2,
-    //   name:"Rice",
-    //   price:250,
-    //   type:'RICE SPECIALITIES',
-    //   image:'/'
-    // },{
-    //     id:3,
-    //     name:"Lime Juice",
-    //     price:100,
-    //     type:'BEVERAGES',
-    //     image:'/'
-    //   },{
-    //   id:4,
-    //   name:"Noodles",
-    //   price:100,
-    //   type:'QUICK FOODS',
-    //   image:'/'
-    // }])
+    
 
   },[])
 
