@@ -21,7 +21,7 @@ export default function OrderRequests() {
     // API call to fetch data TODO
     const fetchData = () =>{
       getOrderRequests().then(data =>{
-        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.menuName,qty:item.quantity}))}))
+        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.name,qty:item.qty}))}))
         setData(out);
       })
     }
