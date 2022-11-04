@@ -19,3 +19,7 @@ export async function getCountsReport() {
 export async function getPopulaMenu() {
     return axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/popularMenu/counts`)
 }
+
+export async function getReorderItems() {
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/reorder/items`)
+}

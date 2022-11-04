@@ -19,7 +19,7 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
-import { getCountsReport, getPopulaMenu } from '../services/ReportService';
+import { getCountsReport, getPopulaMenu, getReorderItems } from '../services/ReportService';
 
 // ----------------------------------------------------------------------
 
@@ -32,8 +32,8 @@ export default function DashboardAppPage() {
       [...Array(5)].map((_, index) => ({
           id: faker.datatype.uuid(),
           title: "Onion",
-          image: `/assets/images/covers/cover_${index + 1}.jpg`,
-          postedAt: 'randon',
+          // image: `/assets/images/covers/cover_${index + 1}.jpg`,
+          itemNo: 'randon',
       }))
   )
 
@@ -52,6 +52,11 @@ export default function DashboardAppPage() {
 
         getPopulaMenu().then(({data})=>{ 
           setPopularMenu(data)
+        })
+        getReorderItems().then(({data})=>{ 
+          setReorderList(data)
+          console.log(data);
+          
         })
 
         // caller().then(({data})=>{ // TODO
