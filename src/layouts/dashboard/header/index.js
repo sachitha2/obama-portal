@@ -48,7 +48,7 @@ export default function Header({ onOpenNav }) {
     // KITCHEN_MANAGER ,ADMIN, CUSTOMER, CASHIER,STOCK_KEEPER
     const role = getCookie('role');
     setUserRole(role);
-    setUserRole('CUSTOMER')
+    setUserRole('ADMIN')
   }, [])
 
   const navigate = useNavigate();
