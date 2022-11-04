@@ -21,7 +21,34 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
       <CardHeader title={title} subheader={subheader} />
 
       <Scrollbar>
-        <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
+        <Stack spacing={3} sx={{ p: 1, pr: 0 }}>
+        <Stack direction="row" alignItems="center" spacing={2} >
+            <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+            <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+              Item Id
+            </Typography>
+          </Box>
+          <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+            <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+              Item Name
+            </Typography>
+          </Box>
+          <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+            <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+              Refil Amount
+            </Typography>
+          </Box>
+          <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+            <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+              Available Quantity          
+            </Typography>
+          </Box>
+          <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+            <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+              Unit         
+            </Typography>
+          </Box>
+          </Stack>
           {list.map((news) => (
             <NewsItem key={news.id} news={news} />
           ))}
@@ -47,34 +74,44 @@ NewsItem.propTypes = {
     itemName: PropTypes.string,
     levelAdd: PropTypes.number,
     availQty:PropTypes.number,
+    units:PropTypes.string,
   }),
 };
 
+
 function NewsItem({ news }) {
-  const { itemId, itemName, levelAdd, availQty } = news;
+  const { itemId, itemName, levelAdd, availQty, units } = news;
 
   return (
+    
+          
     <Stack direction="row" alignItems="center" spacing={2} >
       {/* <Box component="img" alt={title} src={image} sx={{ width: 48, height: 48, borderRadius: 1.5, flexShrink: 0 }} /> */}
 
-      <Box sx={{ minWidth: 240, flexGrow: 1 }}>
+      <Box sx={{ minWidth: 150, flexGrow: 1 }}>
         <Typography color="black" variant="subtitle2" underline="hover" noWrap>
           {itemId}
         </Typography>
       </Box>
-      <Box sx={{ minWidth: 240, flexGrow: 1 }}>
+      <Box sx={{ minWidth: 150, flexGrow: 1 }}>
         <Typography color="black" variant="subtitle2" underline="hover" noWrap>
           {itemName}
         </Typography>
       </Box>
-      <Box sx={{ minWidth: 240, flexGrow: 1 }}>
+      
+      <Box sx={{ minWidth: 150, flexGrow: 1 }}>
         <Typography color="black" variant="subtitle2" underline="hover" noWrap>
           {levelAdd}
         </Typography>
       </Box>
-      <Box sx={{ minWidth: 240, flexGrow: 1 }}>
+      <Box sx={{ minWidth: 150, flexGrow: 1 }}>
         <Typography color="black" variant="subtitle2" underline="hover" noWrap>
           {availQty}          
+        </Typography>
+      </Box>
+      <Box sx={{ minWidth: 150, flexGrow: 1 }}>
+        <Typography color="black" variant="subtitle2" underline="hover" noWrap>
+          {units}
         </Typography>
       </Box>
 

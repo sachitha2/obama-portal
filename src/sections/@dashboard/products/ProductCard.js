@@ -20,10 +20,11 @@ const StyledProductImg = styled('img')({
 
 ShopProductCard.propTypes = {
   product: PropTypes.object,
-    changed: PropTypes.func
+    changed: PropTypes.func,
+      hideButton:PropTypes.bool,
 };
 
-export default function ShopProductCard({ product, changed }) {
+export default function ShopProductCard({ product, changed, hideButton }) {
   const { name, cover, currentState, itemId } = product;
 
     const changeState = (id)=>{
@@ -42,9 +43,9 @@ export default function ShopProductCard({ product, changed }) {
         <StyledProductImg alt={name} src={cover} style={{'opacity':'0.3'}}/>
       </Box>
 
-      <Stack spacing={2} sx={{ p: 3 }}>
+      {!hideButton && <Stack spacing={2} sx={{ p: 3 }}>
         <Button variant={currentState==='AVAILABLE'?'contained':'outlined'} onClick={()=>changeState(itemId)}>{currentState==='AVAILABLE'?'Unavailable':'Available'}</Button>
-      </Stack>
+      </Stack>}
     </Card>
   );
 }

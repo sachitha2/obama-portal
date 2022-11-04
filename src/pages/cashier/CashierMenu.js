@@ -75,7 +75,7 @@ export default function CashierMenu() {
         <Typography variant="h2" sx={{ mb: 5 }}>
            Menu
         </Typography>
-        <ProductList />
+        <ProductList hideButton />
         <Divider sx={{ bgcolor: '#B5986D' }} />
         
       </Container>
