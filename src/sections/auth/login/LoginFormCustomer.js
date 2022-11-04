@@ -16,7 +16,10 @@ export default function LoginFormCustomer() {
     const [mobileNumber, setMobileNumber] = useState('');
 
     const handleClick = async () => {
-        customerLogin(mobileNumber).then(result => {
+        if(!/^((\+\d{11})|\d{10})$/.test(mobileNumber)){
+            alert("Invalid Mobile No");
+        }else{
+            customerLogin(mobileNumber).then(result => {
             
                 setCookie('userId', result.data);
                 setCookie('role', "CUSTOMER");
@@ -24,6 +27,8 @@ export default function LoginFormCustomer() {
             }).catch(e => {
                 alert(e.response.data)
             })
+        }
+        
     };
 
     return (
