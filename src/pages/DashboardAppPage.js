@@ -104,6 +104,7 @@ export default function DashboardAppPage() {
               <AppNewsUpdate
                   title="Reorder Requests"
                   list={reorderList}
+                  style={{"color":"black"}}
               />
           </Grid>
 
@@ -111,6 +112,7 @@ export default function DashboardAppPage() {
             <AppCurrentVisits
               title="Popular Menu"
               chartData={popularMenu}
+              style={{"color":"black"}}
               chartColors={[
                 theme.palette.primary.main,
                 theme.palette.info.main,
