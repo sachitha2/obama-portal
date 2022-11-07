@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import {useCallback, useEffect, useState} from "react";
 // @mui
 import { Container, Typography,Grid,Button,Divider,TextField,Modal,Box } from '@mui/material';
-import { getAcceptedOrders, prepareOrder } from '../services/OrderService';
+import { getAcceptedOrders, prepareOrder, getStewards, assignOrderToStew } from '../services/OrderService';
 
 
 const style = {
@@ -24,33 +24,50 @@ export default function AcceptedOrders() {
 
   // Modal start
 
-  const [open, setOpen] = useState(true); // TODO false danna meka nathnam modal eka open welama thiyenawa
+  const [open, setOpen] = useState(false);
+  const [refresh , setRefresh] = useState(false);
+  const [oId, setOId] = useState(0); 
   const handleOpen = () => setOpen(true);
+  const [stewardList, setstewardList] = useState([]);
   const handleClose = () => setOpen(false);
 
   // Modal end
 
   const handleOrder = useCallback((orderId,status)=>{ // assign / prepare
-    // TODO handle api call to assign or prepare
       if(status === 'assign'){
         setOpen(true)
+        setOId(orderId);
+        
+      }else{
+        prepareOrder(orderId);
+        setRefresh(!refresh);
       }
-      prepareOrder(orderId);
     // console.log(orderId,status)
     },[])
 
+    const assignOrder = useCallback((staffId,oId)=>{ 
+      assignOrderToStew(staffId,oId);
+      alert("Order Assigned");
+      setRefresh(!refresh);
+      },[])
+
+
   useEffect(()=>{
-    // API call to fetch data TODO
     const fetchData = () =>{
       getAcceptedOrders().then(data =>{
 
-        const out = data.data.map(d=>({orderId:d.orderId,items:d.menuInstances.map(item => ({name:item.name,qty:item.qty}))}))
+        const out = data.data.map(d=>({orderId:d.orderId,status:d.status,items:d.menuInstances.map(item => ({name:item.name,qty:item.qty}))}))
         setData(out);
         console.log(out);
       })
     }
     fetchData();
-  },[handleOrder])
+    getStewards().then(({data})=>{
+      setstewardList(data);
+      // console.log(data);      
+    }
+      );
+  },[handleOrder, refresh])
 
   return (
     <>
@@ -74,7 +91,7 @@ export default function AcceptedOrders() {
             Quantity
           </Grid>
           <Grid item xs={3} sm={3} md={3} style={{"display":"none"}}>
-            Config
+            Action
           </Grid>
         </Grid>
         {data.map((d, index) => (
@@ -83,6 +100,7 @@ export default function AcceptedOrders() {
               <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
                 <Grid item xs={3} sm={3} md={3}>
                   {d?.orderId}
+                  
                 </Grid>
                 <Grid item xs={3} sm={3} md={3}>
                   {d?.items?.map((i,k)=>(
@@ -95,8 +113,8 @@ export default function AcceptedOrders() {
                   ))}
                 </Grid>
                 <Grid item xs={3} sm={3} md={3} style={{"display":"flex","flexDirection":"column"}}>
-                  <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'prepare')}>Prepared</Button>
-                  <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'assign')}>Assign</Button>
+                  {d?.status === "ACCEPTED" ? <Button style={{"backgroundColor":"#175A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'prepare')}>Prepared</Button>
+                  :<Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}} onClick={()=>handleOrder(d?.orderId,'assign')}>Assign</Button>}
                   
                 
                 </Grid>
@@ -118,23 +136,15 @@ export default function AcceptedOrders() {
                 <Grid container padding={2} columns={{ xs: 12, sm: 12, md: 12 }}>
                   <Grid item xs={12} sm={12} md={12} padding={2}>
                     <Typography style={{"textAlign":"center"}} id="modal-modal-title" variant="h6" component="h2">
-                      Assign a user
+                      Assign Steward
                     </Typography>
                   </Grid>
+                  {stewardList.map(steward=>
                   <Grid item xs={6} sm={6} md={6} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                    <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>USER one</Button>
+                    <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}} onClick={()=>assignOrder(steward.staffId,oId)}>{steward.firstName}-{steward.staffId}</Button>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                    <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>USER two</Button>
-                  </Grid>
-
-                  <Grid item xs={6} sm={6} md={6} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                    <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>USER three</Button>
-                  </Grid>
-
-                  <Grid item xs={6} sm={6} md={6} padding={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
-                    <Button style={{"backgroundColor":"#FF7A00","color":"#FFF","margin":"5px"}}>USER four</Button>
-                  </Grid>
+                  )}
+                  
                 </Grid>
                 
               </>
