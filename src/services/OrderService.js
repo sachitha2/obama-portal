@@ -30,3 +30,12 @@ export async function addMenuInstance(userId,orderId,menuInstances) {
         menuInstances
     })
 }
+
+export async function getStewards() {
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/km/steward/available`)
+}
+
+export async function assignOrderToStew(staffId,orderId) {
+    return axios.put(`${process.env.REACT_APP_API_BASE_URL}/km/order/assign/${staffId}/${orderId}`)
+}
+
