@@ -70,7 +70,7 @@ export default function StockKeeperAddRawItems() {
             Available Qty
           </Grid>
           <Grid item xs={3} sm={3} md={3} style={{"display":"none"}}>
-            Config
+            Action
           </Grid>
         </Grid>
 
