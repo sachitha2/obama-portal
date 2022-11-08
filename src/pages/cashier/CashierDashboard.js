@@ -17,6 +17,7 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 // components
 import { ProductList } from '../../sections/@dashboard/products';
+import { getOngoingOrders } from '../../services/OrderService';
 // mock
 // import PRODUCTS from '../_mock/products';
 // ----------------------------------------------------------------------
@@ -35,34 +36,19 @@ const style = {
 };
 
 export default function CashierDashboard() {
-  const [data, setData] = useState([
-    {
-      orderId: 122,
-      items: [
-        { name: 'ddd', qty: 2 },
-        { name: 'ddd2', qty: 2 },
-      ],
-    },
-    {
-      orderId: 122,
-      items: [
-        { name: 'ddd', qty: 2 },
-        { name: 'ddd2', qty: 2 },
-      ],
-    },
-  ]);
-  const [forDate, setForDate] = useState('');
-  const [periodFrom, setPeriodFrom] = useState('');
-  const [periodTo, setPeriodTo] = useState('');
-  const [forMonth, setForMonth] = useState(0);
-  const [expenseForDate, setExpenseForDate] = useState('');
-  const [expenseForMonth, setExpenseForMonth] = useState('');
+  const [data, setData] = useState([]);
+  
+  useEffect(()=>{
+    const fetchData = () =>{
+      getOngoingOrders().then(data =>{
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const [search,setSearch] = useState('')
+        const out = data.data.map(d=>({orderId:d.orderId,contactNo:d.contactNo,amount:d.amount,status:d.orderStatus}))
+        setData(out);
+        console.log(out);
+      })
+    }
+    fetchData();
+  },[]);
 
   const [tableBtn,setTableBtn] = useState([
     {
@@ -101,9 +87,7 @@ export default function CashierDashboard() {
     },
 ])
 
-  const handleChange = (event) => {
-    setForMonth(event.target.value);
-  };
+  
   return (
     <>
       <Helmet>
@@ -119,7 +103,7 @@ export default function CashierDashboard() {
           <Grid item xs={12} sm={12} md={12} padding={1} spacing={1} display="flex" justifyContent="center" alignContent="center" alignItems="center">
             {
               tableBtn.map((data,index)=>(
-                <Button key={index} onClick={handleOpen} variant="contained" style={data.status === "available"?{"margin":"5px","backgroundColor":"#175A00"}: {"margin":"5px","backgroundColor":"#C70606"}}>
+                <Button key={index} variant="contained" style={data.status === "available"?{"margin":"5px","backgroundColor":"#175A00"}: {"margin":"5px","backgroundColor":"#C70606"}}>
                   Table <br/>
                   {data.id}
                 </Button>
@@ -134,7 +118,7 @@ export default function CashierDashboard() {
               Order No
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              Customer Name
+              Contact Number
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               Amount
@@ -147,22 +131,24 @@ export default function CashierDashboard() {
 
         {/* Sample data start */}
         <Divider sx={{ bgcolor: '#B5986D' }} />
-        <div>
+        {data.map((d, index) => (
+          <div key={index}>
           <Grid container padding={3} columns={{ xs: 12, sm: 12, md: 12 }}>
             <Grid item xs={3} sm={3} md={3}>
-              1004
+            {d?.orderId}
             </Grid>
             <Grid item xs={3} sm={3} md={3}>
-              sachitha hirushan
+            {d?.contactNo}
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              750
+            {d?.amount}
             </Grid>
             <Grid item xs={3} sm={3} md={3} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              Accepted
+            {d?.status}
             </Grid>
           </Grid>
         </div>
+        ))}
         {/* Sample data end */}
       </Container>
     </>

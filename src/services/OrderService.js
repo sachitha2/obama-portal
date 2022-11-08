@@ -12,8 +12,20 @@ export async function acceptOrder(orderId) {
     return axios.put(`${process.env.REACT_APP_API_BASE_URL}/km/order/accept/${orderId}`)
 }
 
+export async function acceptPayment(orderId) {
+    return axios.put(`${process.env.REACT_APP_API_BASE_URL}/cashier/order/paid/${orderId}`)
+}
+
 export async function getAcceptedOrders() {
     return axios.get(`${process.env.REACT_APP_API_BASE_URL}/km/order/accepted`)
+}
+
+export async function getAssignedOrders() {
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/cashier/order/assigned`)
+}
+
+export async function getOngoingOrders() {
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/cashier/order/details`)
 }
 
 export async function placeOrder(amount,userId) {
